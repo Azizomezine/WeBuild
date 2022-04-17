@@ -1,20 +1,18 @@
 <?php
 class LeQuestion{
-
+    private $RefQ=null;
     private  $TitreQ=null;
     private $DesQ=null;
-    private  $ContenuQ=null;
     private  $Categ=null;
     private $Date_publication=null;
     private $QuestionStat=null;
 
   
-    function __construct(string $TitreQ, string $DesQ,string $categ,string $ContenuQ, string $Date_publication, string $QuestionStat){
+    function __construct(string $TitreQ, string $DesQ,string $categ, string $Date_publication, string $QuestionStat){
 			
         $this->TitreQ=$TitreQ;
         $this->DesQ=$DesQ;
         $this->categ=$categ;
-        $this->$ContenuQ=$ContenuQ;
         $this->Date_publication=$Date_publication;
     
      $this->QuestionStat=$QuestionStat;
@@ -37,9 +35,7 @@ class LeQuestion{
     function getcateg(): string{
         return $this->categ;
     }
-    function getcontenu(): string{
-        return $this->ContenuQ;
-    }
+  
     function getQuestionStat(): string{
         return $this->QuestionStat;
     }

@@ -265,7 +265,7 @@ hr {
 }
 
 .welcome-part-one {
-    background-color: #FF7361;
+    background-color: #2317cf;
     padding-top: 51px;
     margin-top: -20px;
     padding-bottom: 35px;
@@ -327,7 +327,7 @@ hr {
 
 .input-group-addon:last-child {
     border-left: 0;
-    background-color: #FF7361;
+    background-color: #2317cf;
 }
 
 .input-group-addon:last-child:hover {
@@ -345,7 +345,7 @@ hr {
     color: #000;
     background-color: #fff;
     background-image: none;
-    border: #FF7361;
+    border: #2317cf;
     border-radius: none;
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -364,7 +364,7 @@ hr {
 
 .input-group-addon:first-child {
     border-right: 0;
-    border: #FF7361;
+    border: #2317cf;
     background-color: #222;
 }
 
@@ -465,10 +465,10 @@ hr {
 
 #main>input:checked + label {
     color: #555;
-    border: 1px solid #FF7361;
-    border-top: 2px solid #FF7361;
-    border-bottom: 1px solid #FF7361;
-    background-color: #FF7361;
+    border: 1px solid #2317cf;
+    border-top: 2px solid #2317cf;
+    border-bottom: 1px solid #2317cf;
+    background-color: #2317cf;
 }
 
 #tab1:checked ~ #content1,
@@ -519,7 +519,7 @@ hr {
 
 #que-hedder2983 h3:hover {
     text-decoration: none;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 #que-hedder2983 a {
@@ -529,7 +529,7 @@ hr {
 
 #que-hedder2983 a:hover {
     text-decoration: none;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .ques-details10018 {
@@ -544,7 +544,7 @@ hr {
 
 .q-type238 {
     margin-top: 23px;
-    background-color: #FF7361;
+    background-color: #2317cf;
     font-size: 10px;
     padding: 5px 10px 5px 10px;
     border: none;
@@ -555,7 +555,7 @@ hr {
 
 .q-type23 {
     margin-top: 23px;
-    background-color: #FF7361;
+    background-color: #2317cf;
     font-size: 10px;
     padding: 5px 10px 5px 10px;
     border: none;
@@ -596,7 +596,7 @@ hr {
 }
 
 .ques-icon-info3293 .fa-folder:hover {
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .ques-icon-info3293 .fa-clock-o {
@@ -608,7 +608,7 @@ hr {
 }
 
 .ques-icon-info3293 .fa-comment:hover {
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .ques-icon-info3293 .fa-user-circle-o {
@@ -648,7 +648,7 @@ hr {
 
 .blog-details3902 h3 {
     font-size: 20px;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .blog-details3902 i {
@@ -674,7 +674,7 @@ hr {
 }
 
 .continue-deatils738 a {
-    background-color: #FF7361;
+    background-color: #2317cf;
     padding: 5px;
     font-size: 13px;
     color: #fff;
@@ -715,7 +715,7 @@ hr {
 }
 
 .status-part3821 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -734,7 +734,7 @@ hr {
 }
 
 .categori-part329 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -792,7 +792,7 @@ hr {
 }
 
 .social-part2189 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -926,7 +926,7 @@ hr {
 }
 
 .login-part2389 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -939,7 +939,7 @@ hr {
     z-index: 9999;
     margin-top: 6px;
     font-size: 25px;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .login-part2389 .namein309 {
@@ -948,7 +948,7 @@ hr {
     padding-left: 30px;
     height: 40px;
     width: 235px;
-    border: 1px solid #FF7361;
+    border: 1px solid #2317cf;
     outline: none;
     background: rgba(255, 115, 97, 0.20);
     color: #000;
@@ -968,7 +968,7 @@ hr {
     z-index: 9999;
     margin-top: 6px;
     font-size: 25px;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .login-part2389 .passin309 {
@@ -977,7 +977,7 @@ hr {
     padding-left: 30px;
     height: 40px;
     width: 235px;
-    border: 1px solid #FF7361;
+    border: 1px solid #2317cf;
     outline: none;
     background: rgba(255, 115, 97, 0.20);
     color: #000;
@@ -989,7 +989,7 @@ hr {
     height: 35px;
     width: 235px;
     text-align: center;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border: none;
     font-weight: bold;
     color: #fff;
@@ -1019,7 +1019,7 @@ hr {
     margin: 0;
     display: inline;
     font-size: 13px;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .rememberme a {
@@ -1033,7 +1033,7 @@ hr {
 }
 
 .resbutton3892:hover {
-    color: #FF7361;
+    color: #2317cf;
     float: right;
     font-size: 12px;
 }
@@ -1050,7 +1050,7 @@ hr {
 }
 
 .highest-part302 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -1080,7 +1080,7 @@ hr {
     -webkit-transition: .5s ease;
     -o-transition: .5s ease;
     transition: .5s ease;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border-radius: 50%;
 }
 
@@ -1115,7 +1115,7 @@ hr {
 }
 
 .points-details938 h5 {
-    color: #fd7362;
+    color: #2317cf;
     font-weight: bold;
     text-decoration: none;
 }
@@ -1137,7 +1137,7 @@ hr {
 }
 
 .tags-part2398 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -1161,7 +1161,7 @@ hr {
 }
 
 .tags-part2398 ul li a:hover {
-    background-color: #fd7362;
+    background-color: #2317cf;
     padding: 5px 15px;
     border-radius: 15px;
     font-family: fontawesome;
@@ -1184,7 +1184,7 @@ hr {
 }
 
 .recent-post3290 h4 {
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     font-family: serif;
     border-bottom: 2px solid #eaeaeb;
@@ -1201,7 +1201,7 @@ h5 {
 .post-details021 a,
 h5:hover {
     text-decoration: none;
-    color: #fd7362;
+    color: #2317cf;
 }
 
 .post-details021 p {
@@ -1269,11 +1269,11 @@ h5:hover {
 }
 
 .footer-search .form-control {
-    border-color: #FF7361;
+    border-color: #2317cf;
 }
 
 .footer-search .form-control:focus {
-    border-color: #FF7361;
+    border-color: #2317cf;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -1466,14 +1466,14 @@ h5:hover {
     outline: inherit;
     padding: 10px;
     border-radius: 3px;
-    border: 1px solid #fd6371;
+    border: 1px solid #2317cf;
 }
 
 
 
 .form-description43 {
     margin-right: 108px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
 }
@@ -1490,12 +1490,12 @@ h5:hover {
     outline: inherit;
     padding: 10px;
     border-radius: 3px;
-    border: 1px solid #fd6371;
+    border: 1px solid #2317cf;
 }
 
 .form-description442 {
     margin-right: 130px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
 }
@@ -1512,12 +1512,12 @@ h5:hover {
     outline: inherit;
     padding: 10px;
     border-radius: 3px;
-    border: 1px solid #fd6371;
+    border: 1px solid #2317cf;
 }
 
 .form-description433 {
     margin-right: 90px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
 }
@@ -1534,12 +1534,12 @@ h5:hover {
     outline: inherit;
     padding: 10px;
     border-radius: 3px;
-    border: 1px solid #fd6371;
+    border: 1px solid #2317cf;
 }
 
 .form-description4342 {
     margin-right: 90px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
 }
@@ -1550,7 +1550,7 @@ h5:hover {
 
 .form-description43305 {
     margin-right: 117px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
 }
@@ -1561,7 +1561,7 @@ h5:hover {
 
 .form-description23993 {
     margin-right: 106px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
     float: left;
@@ -1586,14 +1586,14 @@ h5:hover {
     margin-bottom: 0px;
     height: 200px;
     width: 75%;
-    border: 1px solid #fd6371;
+    border: 1px solid #2317cf;
     background-color: #F3F3F3;
     outline: none;
 }
 
 .form-description43313 {
     margin-right: 131px;
-    color: #fd7362;
+    color: #2317cf;
     font-family: fontawesome;
     font-weight: bold;
     float: left;
@@ -1607,7 +1607,7 @@ h5:hover {
     padding: 5px 15px 5px 15px;
     width: 100%;
     color: #fff;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border: none;
     border-radius: 3px;
     font-weight: bold;
@@ -1642,7 +1642,7 @@ h5:hover {
 
 .post-que-rep-rihght320 a {
     text-decoration: none;
-    background-color: #FF7361;
+    background-color: #2317cf;
     padding: 5px;
     color: #fff;
     font-family: fontawesome;
@@ -1660,7 +1660,7 @@ h5:hover {
 }
 
 .r-clor10 {
-    background-color: #fd6372;
+    background-color: #2317cf;
 }
 
 .r-clor10:hover {
@@ -1742,12 +1742,12 @@ h5:hover {
 
 .l-share2093 {
     display: inline-block;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .R-tags309 {
     float: right;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .author-img202l {
@@ -1777,7 +1777,7 @@ h5:hover {
     -webkit-transition: .5s ease;
     -o-transition: .5s ease;
     transition: .5s ease;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border-radius: 50%;
 }
 
@@ -2104,7 +2104,7 @@ h5:hover {
     width: 100%;
     outline: none;
     border: 1px solid #fd6372;
-    color: #FF7361;
+    color: #2317cf;
     font-weight: bold;
     padding: 10px;
 }
@@ -2113,7 +2113,7 @@ h5:hover {
     padding: 8px;
     width: 100%;
     margin-top: 20px;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border: none;
     color: #fff;
     font-weight: bold;
@@ -2209,7 +2209,7 @@ h5:hover {
 .user-description303 a {
     padding: 8px 20px 8px 20px;
     text-decoration: none;
-    background-color: #FF7361;
+    background-color: #2317cf;
     border-radius: 3px;
     color: #fff;
     font-weight: bold;
@@ -2322,7 +2322,7 @@ h5:hover {
 .user-description3903 a {
     font-family: fontawesome;
     text-decoration: none;
-    color: #FF7361;
+    color: #2317cf;
 }
 
 .badge229 a {

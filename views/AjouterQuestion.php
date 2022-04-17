@@ -1,4 +1,3 @@
-
 <?php 
 include_once '../Model/Question.php';
     include_once '../controller/QuestionC.php';
@@ -12,18 +11,18 @@ include_once '../Model/Question.php';
 
     if (
 		isset($_POST["TitreQ"]) && 
-        isset($_POST["DesQ"]) && isset($_POST["Category"]) && isset($_POST["ContenuQ"]) 
+        isset($_POST["DesQ"]) && isset($_POST["Category"]) 
     
         )
 	 {
         if (
             !empty($_POST["TitreQ"]) && 
-            !empty($_POST["DesQ"])  && !empty($_POST["Category"])  && isset($_POST["ContenuQ"]) 
+            !empty($_POST["DesQ"])  && !empty($_POST["Category"])  
         ){
             $Question = new LeQuestion(
                 $_POST['TitreQ'],
                 $_POST['DesQ'], 
-               $_POST["Category"], $_POST["ContenuQ"],
+               $_POST["Category"],
                date('d/m/Y'),"Unresolved"
             );
             $QuestionC->ajouterquestion($Question);
@@ -76,9 +75,9 @@ include_once '../Model/Question.php';
                         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Disscussion Forum <span class="caret"></span></a>
                             <ul class="dropdown-menu animated zoomIn">
                                 <li><a href="contact_us.html"> Contact Us</a></li>
-                                <li><a href="ask_question.html"> Ask Question </a></li>
-                                <li><a href="post-deatils.html"> Post-Details </a></li>
-                                <li><a href="user.html">All User</a></li>
+                                <li><a href="#"> Ask Question </a></li>
+                                <li><a href="afficherMesQuestion.php"> Post-Details </a></li>
+                                <li><a href="afficherMesQuestion.php">All User</a></li>
                                 <li><a href="user_question.html"> User Question </a></li>
                                 <li><a href="category.html"> Category </a></li>
                                
@@ -112,9 +111,10 @@ include_once '../Model/Question.php';
                         <div class="question-title39">
                             <span class="form-description433">Question-Title </span><input type="text" id="TitreQ"  name="TitreQ" class="question-ttile32" placeholder="Write Your Question Title" required>
                         </div>
-                        <div class="question-title39">
-                            <span class="form-description433">Question-Des </span><input type="text" id="DesQ"name="DesQ" class="question-ttile32" placeholder="Write Your Question description" required>
-                        </div>
+
+                            <!-- <span class="form-description433">Question-Des </span><textarea type="text"  id="Article_editor" name="DesQ"  ></textarea> -->
+                        
+                       
     <div class="categori49">
         <span class="form-description43305">Category* </span>
         <label>
@@ -128,9 +128,9 @@ include_once '../Model/Question.php';
 </datalist>
     </div>
  
-       <div class="details2-239">
+         <div class="details2-239">
         <div class="col-md-12 nopadding">
-            <textarea type="text" class="" id="txtEditor" name="ContenuQ"  ></textarea> 
+       <textarea type="text"  id="Article_editor" name="DesQ"  ></textarea>
         </div>
                         </div>	
                      
@@ -464,6 +464,10 @@ include_once '../Model/Question.php';
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
       <script src="js/editor.js"></script>
+      <script src="ckeditor/ckeditor.js"></script>
+      <script >
+       CKEDITOR.replace('Article_editor');
+     </script>
    	<script>
 			$(document).ready(function() {
 				$("#txtEditor").Editor();

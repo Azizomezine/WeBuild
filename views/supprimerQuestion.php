@@ -2,9 +2,8 @@
 
 include '../controller/QuestionC.php';
 
-include '../includes/head.php';
-
 $QuestionC=new QuestionC();
-$QuestionC->supprimerQuestion($_GET["RefQ"]);
-header('Location:afficherMesQuestion.php');
+if (isset($_POST["RefQ"])){
+$QuestionC->supprimerQuestion($_POST["RefQ"]);
+header('Location:afficherMesQuestion.php');}
 ?>

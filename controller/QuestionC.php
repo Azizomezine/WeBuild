@@ -8,8 +8,8 @@ class QuestionC {
 
 public function ajouterquestion($Question)
     {
-		$sql="INSERT INTO question (TitreQ, DesQ,Category, ContenuQ, Date_publication, QuestionStat ) 
-		VALUES (:TitreQ,:DesQ,:Category,:ContenuQ, :Date_publication , :QuestionStat )";
+		$sql="INSERT INTO question (TitreQ, DesQ,Category, Date_publication, QuestionStat ) 
+		VALUES (:TitreQ,:DesQ,:Category, :Date_publication , :QuestionStat )";
 		$db = config::getConnexion();
 		try{
 			$query = $db->prepare($sql);
@@ -18,9 +18,8 @@ public function ajouterquestion($Question)
 				'TitreQ' => $Question->getTitreQ(),
 				'DesQ' => $Question->getDesQ(),
 				'Category' => $Question->getCateg(),
-				'ContenuQ' => $Question->getCateg(),
 				'Date_publication' => $Question->getDate_publication(),
-				'QuestionStat' => $Question->getDate_publication()
+				'QuestionStat' => $Question->getQuestionStat()
 			]);			
 		}
 		catch (Exception $e){
@@ -44,6 +43,7 @@ public function ajouterquestion($Question)
                  }
              }
          }
+
          function recupererQuestion($RefQ){
 			$sql="SELECT * from question where RefQ=$RefQ";
 			$db = config::getConnexion();
@@ -59,23 +59,26 @@ public function ajouterquestion($Question)
 			}
 		}
 		
-		function modifierQuestion($Question, $RefQ)
-		{
+		function modifierquestion($Question, $RefQ){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
 					'UPDATE question SET 
-							DesQ= :DesQ, 
-							TitreQ= :TitreQ, 
-							ContenuQ= :ContenuQ, 
-						WHERE RefQ= :RefQ'
-				);
-				$query ->execute(['RefQ' => $RefQ,
-					'DesQ'=>$Question->get_DesQ(),
-					'TitreQ'=>$Question->get_TitreQ(),
-					'ContenuQ'=>$Question->get_ContenuQ(),
-					'Date_publication'=>date('d/m/Y')
-				]);
+						TitreQ = :TitreQ, 
+						DesQ = :DesQ,
+						Category = :Category,
+						Date_publication = :Date_publication,
+						QuestionStat  = :QuestionStat 
+					WHERE RefQ = :RefQ'
+                );
+                
+                $query->execute([
+					'TitreQ' =>$Question->getTitreQ(),
+					'DesQ' => $Question->getDesQ(),
+					'Category' => $Question->getCateg(),
+					'Date_publication' => $Question->getDate_publication(),
+					'QuestionStat' => $Question->getQuestionStat() ,'RefQ'=>$RefQ
+				]);		
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
 				$e->getMessage();
@@ -93,6 +96,24 @@ public function ajouterquestion($Question)
 				die('Erreur:'. $e->getMeesage());
 			}
 		}
+		public function detailquestion($RefQ)
+{
+$sql ="SELECT *FROM Question WHERE RefQ =$RefQ";
+$pdo = config :: getConnexion();
+
+    try{
+    $query =$pdo->prepare($sql);
+    $query ->execute();
+
+    $Question =$query->fetch();
+    return $Question;
+
+    }catch (PDOException $e)
+    {
+    $e ->getMessage();
+    }   
+}
+        
 
 }
 ?>
