@@ -1,0 +1,211 @@
+
+/*--------------------------------------------------RESPONSIVE-------------------------------------------------*/
+@media screen and ( max-width: 1440 px) and (max-height: 1024px){
+    :root{
+        --layout:1fr;
+    }
+}
+
+body{
+background:#EEF1F4 ;
+
+}
+/*--------------------------------------------------Banner-------------------------------------------------*/
+.wrapper
+{   background-color:#EEF1F4;
+   
+    max-width: 1236px;
+    height: 669px;
+    margin: 8em auto 2em; /* top | horizontal | bottom */
+   
+    border-radius: 35px;
+
+}
+
+.wrapper:after{
+
+content: "";
+display: block;
+clear: both;
+
+}
+
+.img{
+    max-width: 1236px;
+}
+
+
+/*-------------- mini nav bar ------------------*/
+.mini-nav
+{  list-style-type: none ;
+
+  
+    float:inline-start;    
+    width: 190px;
+    height: 50px;
+    border-radius: 35px;
+    
+    position: relative;
+    background: #FFFFFF;
+    margin: 0em ; /* top | horizontal | bottom */
+    padding: 1em 3em 0 3em; /* top | right | bottom | left */
+        /* text */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+
+
+  
+
+}
+
+
+/*-------------------------------------------------- info box-------------------------------------------------*/
+
+/*--------------Title--------------------*/
+.info h1
+{
+    background: #FFFFFF;
+    color: #202124;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 138% */
+    
+    text-align: center;
+    letter-spacing: -0.02em;
+
+}
+
+/*--------------second title (qustion) --------------------*/
+.info p
+{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    /* Icons grey */
+
+    color: #878889;
+    background: #FFFFFF;
+
+
+}
+.info h1, .info p{
+    background: #FFFFFF;
+    text-align: left;
+    line-height: 10px;
+}
+
+.info
+{
+    
+    background: #FFFFFF;
+    float: left;
+   
+    padding: 0em 3em 0 3em; /* top | right | bottom | left */
+    
+
+}
+
+
+.container
+{
+    
+
+    padding: 20px;
+  
+    width: 1110px;
+    height: 200px;
+  
+    box-sizing: border-box;
+    margin: -9em auto 2em; /* top | horizontal | bottom */
+   
+
+    /* white */
+
+    background: #FFFFFF;
+    border-radius: 35px;
+    position: relative;
+   
+
+
+
+}
+
+
+.container:after
+{
+    background: #FFFFFF;
+    content: "";
+    display: block;
+    clear: both;
+}
+.info.search{
+    background: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: 160px;
+  }
+  
+/*--------------search button ------------------*/
+.btn{
+    border: 1px solid #1A73E8;
+    background: #FFFFFF;
+    padding: 10px 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn1{
+    color: #1A73E8;
+    background: #FFFFFF;
+  }
+ /*--------------search button animation ------------------*/
+  .btn1:hover{
+    color: #D1D3D3;
+    border-color:#D1D3D3  ;
+    background: #FFFFFF;
+  }
+ 
+  .btn::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: #1A73E8;
+    z-index: -1;
+    transition: 0.8s;
+  }
+  .btn1::before{
+    background: #FFFFFF;
+    top: 0;
+    border-radius: 0 0 50% 50%;
+  }
+  
+
+  .btn1:hover::before{
+    background: #FFFFFF;
+    height: 180%;
+  }
+  
+  
+
+
