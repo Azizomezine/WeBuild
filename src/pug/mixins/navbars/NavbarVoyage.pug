@@ -1,0 +1,30 @@
+mixin NavbarVoyage
+  nav.navbar.navbar-expand-lg.navbar-light.fixed-top.py-3.d-block(data-navbar-on-scroll)
+    .container
+      a.navbar-brand(href='index.html')
+        img.d-inline-block(src=`${CWD}assets/img/gallery/logo.png` width='50' alt='logo')
+        span.fw-bold.text-primary.ms-2 voyage
+      button.navbar-toggler.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse.border-top.border-lg-0.mt-4.mt-lg-0
+        ul.navbar-nav.mx-auto.pt-2.pt-lg-0.font-base
+          li.nav-item.px-2
+            a.nav-link.fw-medium(aria-current='page', href='#destinations' class= currentPage === 'index' ? 'active' : false )
+              span.nav-link-icon.text-800.me-1.fas.fa-map-marker-alt
+              span.nav-link-text Locations 
+          li.nav-item.px-2
+            a.nav-link(href='#flights') 
+              span.nav-link-icon.text-800.me-1.fas.fa-plane
+              span.nav-link-text Flights
+          li.nav-item.px-2
+            a.nav-link(href='#hotels') 
+              span.nav-link-icon.text-800.me-1.fas.fa-hotel
+              span.nav-link-text Hotels
+          li.nav-item.px-2
+            a.nav-link(href='#activities')
+              span.nav-link-icon.text-800.me-1.fas.fa-bolt
+              span.nav-link-text Activities
+        form
+          button.btn.text-800.order-1.order-lg-0.me-2(type='button') Support
+          button.btn.btn-voyage-outline.order-0(type='submit')
+            span.text-primary Sign in

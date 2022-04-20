@@ -1,0 +1,105 @@
+append variables
+  -
+    var packages= [
+      {
+        image:'sky-the-limit.png',
+        title:'Sky the Limit',
+        price:'$175',
+        country:'Manali',
+        days:'4 days',
+      },
+      {
+        image:'beyond-the-blues.png',
+        title:'Beyond the Blues',
+        price:'$175',
+        country:'Maldives',
+        days:'4 days',
+      },
+      {
+        image:'green.png',
+        title:'Within the Gren',
+        price:'$175',
+        country:'Phillipines',
+        days:'4 days',
+      },
+      {
+        image:'queens-gambit.png',
+        title:'Queens Gambit',
+        price:'$175',
+        country:'London',
+        days:'4 days',
+      },
+      {
+        image:'canals.png',
+        title:'City of canals',
+        price:'$175',
+        country:'Maldives',
+        days:'4 days',
+      },
+      {
+        image:'mountain-venture.png',
+        title:'Mountain Venture',
+        price:'$175',
+        country:'Maldives',
+        days:'4 days',
+      },
+
+    ];
+
+mixin PackageItem(config)
+  .card.card-span.h-100.text-white
+    img.img-fluid.h-100.w-100(src=`${CWD}assets/img/gallery/${config.image}` height='375'  alt='...')
+    .card-img-overlay.ps-0.d-flex.flex-column.justify-content-between.bg-voyage-gradient
+      .mt-auto.px-4
+        h3.fs-1.fs-md-2.text-white=config.title
+        .d-flex.align-items-center.justify-content-start
+          span.text-light.fs--1.me-1
+            i.fas.fa-map-marker-alt
+          span.text-light.me-3=config.country
+          span.text-light.fs--1.me-1
+            i.fas.fa-calendar
+          span.text-light=config.days
+        h1.my-2.text-light.fw-bolder.fs-4
+          span=config.price
+          span.text-light.fs--1.fw-normal /Per person
+    a.stretched-link(href='#!')
+
+mixin Packages
+  section.py-7.overflow-hidden
+    .container.bg-offcanvas-gray
+      .row.gx-2
+        .col-sm-6.col-lg-4.order-1.order-lg-0.gy-2.gy-lg-0
+          +PackageItem(packages[0])
+        .col-sm-6.col-lg-4.order-2.order-lg-0.gy-2.gy-lg-0
+          +PackageItem(packages[1])
+        .col-12.col-lg-4
+          .bg-primary-gradient.h-100.bg-offcanvas-right
+            .row.g-0.h-100
+              .col-12.h-100
+                .d-flex.flex-column.justify-content-center.h-100.text-light.ps-4.ps-xl-5.py-5.py-lg-0
+                  img.mb-5(src=`${CWD}assets/img/icons/icon-gift-box.svg` width='58'  alt='...')
+                  h2.mb-2.text-light popular Packages
+                  p Choose the most popular bundles among 
+                    br.d-none.d-xl-block
+                    |our current ones.
+
+        .col-sm-6.col-lg-4.gy-2
+          +PackageItem(packages[2])
+        .col-sm-6.col-lg-4.gy-2
+          +PackageItem(packages[3])
+        .col-sm-6.col-lg-4.gy-2
+          +PackageItem(packages[4])
+
+        .col-12.col-lg-8.gy-2.order-3.order-lg-0 
+          .bg-secondary-gradient.h-100
+            .row.h-100
+              .col-12
+                .d-flex.flex-column.flex-center.h-100.text-light.p-4.p-sm-6.p-md-8.p-lg-0
+                  p.fs-1.px-3.mb-5 Most exclusive packages are ready 
+                    br.d-none.d-xl-block
+                    |for you. It's only a click away!
+                  a.btn.btn-lg.text-light.fs-1(href='#!' role='button') Click to view more
+                    svg.bi.bi-arrow-right-circle.ms-7(xmlns='http://www.w3.org/2000/svg' width='55' height='55' fill='currentColor' viewBox='0 0 16 16')
+                      path(fill-rule='evenodd' d='M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z')
+        .col-sm-6.col-lg-4.gy-2
+          +PackageItem(packages[5])

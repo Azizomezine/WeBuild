@@ -1,0 +1,66 @@
+append variables
+	-
+		var activities= [
+			{
+				image:'activity.png',
+				activity:'Bungee Jumping',
+				description:`Bungee jumping, often known as bungy jumping, is a sport in which a person jumps from a considerable height while attached to a long elastic line. Usually, the pad is built on a high structure like a structure or a crane, a bridge across a steep ravine`,
+			},
+			{
+				image:'activity.png',
+				activity:'Bungee Jumping',
+				description:`Bungee jumping, often known as bungy jumping, is a sport in which a person jumps from a considerable height while attached to a long elastic line. Usually, the pad is built on a high structure like a structure or a crane, a bridge across a steep ravine`,
+			},
+			{
+				image:'activity.png',
+				activity:'Bungee Jumping',
+				description:`Bungee jumping, often known as bungy jumping, is a sport in which a person jumps from a considerable height while attached to a long elastic line. Usually, the pad is built on a high structure like a structure or a crane, a bridge across a steep ravine`,
+			},
+			{
+				image:'activity.png',
+				activity:'Bungee Jumping',
+				description:`Bungee jumping, often known as bungy jumping, is a sport in which a person jumps from a considerable height while attached to a long elastic line. Usually, the pad is built on a high structure like a structure or a crane, a bridge across a steep ravine`,
+			},
+
+		];
+
+
+mixin ActivityIteam(config)
+	.col-12
+		img.w-100(src=`${CWD}assets/img/gallery/${config.image}` width='383'  alt='...')
+		.py-4
+			h4.mb-2.text-1000 Participate in activities like
+			h2.mb-3.text-primary.fs-3.fs-md-6=config.activity
+			p.fw-normal.mb-0.pe-lg-9=config.description
+
+mixin Activities 
+	+Section.py-7#activities
+		.row.g-0
+			.col-lg-4.order-1
+				img.w-100.mt-5.mt-lg-0(src=`${CWD}assets/img/gallery/bungee-jumping.png` height='750' alt='...')  
+			.col-lg-8
+				#carouselActivity.carousel.slide(data-bs-ride='carousel')
+					.carousel-inner
+						.carousel-item.active(data-bs-interval='10000')
+							.row.h-100
+								+ActivityIteam(activities[0])       
+						.carousel-item(data-bs-interval='2000')
+							.row.h-100
+								+ActivityIteam(activities[1])
+						.carousel-item(data-bs-interval='1000')
+							.row.h-100
+								+ActivityIteam(activities[2])
+						.carousel-item
+							.row.h-100
+								+ActivityIteam(activities[3])    
+					.row.ps-sm-5.ps-md-0.align-items-end
+							.col-4.col-sm-6.position-relative.z-index-2
+								ol.carousel-indicators.me-xxl-7.me-xl-4.me-lg-7
+									li.active(data-bs-target='#carouselShare' data-bs-slide-to='0')
+									li(data-bs-target='#carouselShare' data-bs-slide-to='1')
+									li(data-bs-target='#carouselShare' data-bs-slide-to='2')
+									li(data-bs-target='#carouselShare' data-bs-slide-to='3')
+							.col-8.col-sm-6.position-relative.z-index-2.text-end
+								a.btn.btn-lg.text-secondary(href='#' role='button') Read More
+									svg.bi.bi-arrow-right.ms-2(xmlns='http://www.w3.org/2000/svg' width='35' height='35' fill='currentColor' viewBox='0 0 16 16')
+										path(fill-rule='evenodd' d='M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z')
