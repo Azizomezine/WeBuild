@@ -34,7 +34,7 @@ public function ajouterquestion($Question)
                  try
                  {
                      $query = $pdo ->prepare (
-                         'select * FROM  question' );
+                         'select * FROM  question ORDER BY RefQ  DESC LIMIT 0,5' );
                      $query ->execute();
                      $result = $query ->fetchAll(); 
                      return $result;
@@ -93,7 +93,7 @@ public function ajouterquestion($Question)
 				$req->execute();
 			}
 			catch(Exception $e){
-				die('Erreur:'. $e->getMeesage());
+				die('Erreur:'. $e->getMessage());
 			}
 		}
 		public function detailquestion($RefQ)
@@ -113,7 +113,17 @@ $pdo = config :: getConnexion();
     $e ->getMessage();
     }   
 }
-        
+function rechercherQuestion($Search){
+	$sql="select * from question where TitreQ like '".$Search."%' or Category like '".$Search."%' or DesQ like '".$Search."%' ";
+	$db = config::getConnexion();
+	try{
+		$liste=$db->query($sql);
+		return $liste;
+	}
+	catch (Exception $e){
+		return $e->getMessage();
+	}
+}       
 
 }
 ?>

@@ -2,9 +2,21 @@
 <?PHP
 include_once '../Model/Question.php';
 include_once '../controller/QuestionC.php';
+include_once 'navbar.php';
 	$QuestionC=new QuestionC();
 	$listeQuestion=$QuestionC->afficherquestion();
-
+    if (
+		isset($_POST["Search"]) 
+    
+        )
+	 {
+        if (
+            !empty($_POST["Search"])  
+         
+        )
+        {
+   $listeQuestion=$QuestionC->rechercherQuestion($_POST["Search"]);
+        }}
 ?>
 
 <!DOCTYPE html>
@@ -27,72 +39,7 @@ include_once '../controller/QuestionC.php';
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"> </head>
 
 <body>
-    <!--======== Navbar =======-->
-    <div class="top-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="navbar-menu-left-side239">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>Contact</a></li>
-                            <li><a href="#"><i class="fa fa-headphones" aria-hidden="true"></i>Support</a></li>
-                            <li><a href="logIn.html"><i class="fa fa-user" aria-hidden="true"></i>Login Area</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="navbar-serch-right-side">
-                        <form class="navbar-form" role="search">
-                            <div class="input-group add-on">
-                                <input class="form-control form-control222" placeholder="Search" id="srch-term" type="text">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default btn-default2913" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <!-- ==========header mega navbar=======-->
-    <div class="top-menu-bottom932">
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="#"><img src="image/logo.png" alt="Logo"></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav"> </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Home</a></li>
-                      
-                        <li><a href="index.html">CARPOOL</a></li>
-                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Disscussion Forum <span class="caret"></span></a>
-                            <ul class="dropdown-menu animated zoomIn">
-                                <li><a href="contact_us.html"> Contact Us</a></li>
-                                <li><a href="AjouterQuestion.php"> Ask Question </a></li>
-                                <li><a href="post-deatils.html"> Post-Details </a></li>
-                                <li><a href="user.html">All User</a></li>
-                                <li><a href="user_question.html"> User Question </a></li>
-                                <li><a href="category.html"> Category </a></li>
-                               
-                            </ul>
-                        </li>
-                        <li><a href="contact_us.html">Contact us</a></li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-    </div>
-    
+  
     
     <!--======= welcome section on top background=====-->
     <section class="welcome-part-one">
@@ -103,13 +50,15 @@ include_once '../controller/QuestionC.php';
                
                 <div class="button0239-item">
                   
-                        <button type="button" class="join92">Ask Now</button>
+                        <a  type="button" class="join92" href="AjouterQuestion.php">Ask Now</button>
                     </a>
                 </div>
                 <div class="form-style8292">
-                    <div class="input-group"> <span class="input-group-addon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control form-control8392" placeholder="Ask any question and you be sure find your answer ?"> <span class="input-group-addon"><a href="#">Search Now</a></span> </div>
-                </div>
+                    <div class="input-group"> <span class="input-group-addon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span> </div>
+                    <form method="POST">  <input type="text" class="form-control form-control8392" placeholder="Ask any question and you be sure find your answer ?"name="Search">  <div class="publish-button2389">
+                    <button type="submit" class="publis1291" name='ajouter' >Search Now</button>
+                </div></div></form>  
+               
             </div>
         </div>
     </section>
@@ -124,16 +73,13 @@ include_once '../controller/QuestionC.php';
                         <input id="tab1" type="radio" name="tabs" checked>
                         <label for="tab1">Recent Question</label>
                         <input id="tab2" type="radio" name="tabs">
-                        <label for="tab2">Most Response</label>
+                       <label for="tab2">Most Response</label>
                         <input id="tab3" type="radio" name="tabs">
-                        <label for="tab3">Recently Answered</label>
+                        <!-- <label for="tab3">Recently Answered</label>
                         <input id="tab4" type="radio" name="tabs">
-                        <label for="tab4">No Answer</label>
+                        <label for="tab4">No Answer</label>-->
                         <input id="tab5" type="radio" name="tabs">
                         <label for="tab5">Recent Post</label>
-                        
-                    
-                        
                         <section id="content1">
                                <!--Recent Question Content Section -->
                                <?PHP
@@ -148,11 +94,12 @@ include_once '../controller/QuestionC.php';
                                     <div class="col-md-9">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                            <form method="POST" action="QuestionDetails.php">
+                                            <form method="get" action="QuestionDetails.php">
                                             <div id="que-hedder2983">
 <h3><a href="QuestionDetails.php" target="_blank"><?php echo $Question['TitreQ'];?></a></h3> </div>
-<button type="submit" class="q-type238"><i class="fa fa-comment" aria-hidden="true">Details</i></button>
 <input type="hidden" name="RefQ" value="<?php echo $Question['RefQ'];?>">
+<button type="submit" class="q-type238"><i class="fa fa-comment" aria-hidden="true">Details</i></button>
+
 </form>
 </div>
                                             <div class="ques-details10018">
@@ -1609,10 +1556,7 @@ Themehttps://t.co/urb3LgsOCi</a></p> <small>about 2 weeks ago</small> </div>
             </div>
         </div>
     </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/npm.js"></script>
+
 </body>
 
 </html>
