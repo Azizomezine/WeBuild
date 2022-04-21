@@ -43,7 +43,21 @@ public function ajouterquestion($Question)
                  }
              }
          }
+	 function calculerQuestion()
+         {
+			$sql="SELECT COUNT(*)  from question ";
+			$db = config::getConnexion();
+			try{
+				$query=$db->prepare($sql);
+				$query->execute();
 
+				$sum=$query->fetch();
+				return $sum;
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+         }
          function recupererQuestion($RefQ){
 			$sql="SELECT * from question where RefQ=$RefQ";
 			$db = config::getConnexion();

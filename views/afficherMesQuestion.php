@@ -2,9 +2,13 @@
 <?PHP
 include_once '../Model/Question.php';
 include_once '../controller/QuestionC.php';
+include_once '../controller/ReponseC.php';
 include_once 'navbar.php';
 	$QuestionC=new QuestionC();
+    $ReponseC = new ReponseC();
 	$listeQuestion=$QuestionC->afficherquestion();
+    $somme=$QuestionC->calculerQuestion();
+    $sum=$ReponseC->calculerReponse();
     if (
 		isset($_POST["Search"]) 
     
@@ -1298,7 +1302,11 @@ include_once 'navbar.php';
                 <!--strart col-md-3 (side bar)-->
                 <aside class="col-md-3 sidebar97239">
                     <div class="status-part3821">
-                        <h4>stats</h4> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Question(20)</i></a> <i class="fa fa-comment" aria-hidden="true"> Answers(50)</i> </div>
+                        <h4>stats</h4> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Question(<?php foreach($somme as $row) {    echo "<td>" . $row . "</td>";
+      
+        } ?>)</i></a> <i class="fa fa-comment" aria-hidden="true"> Answers(<?php foreach($sum as $row) {    echo "<td>" . $row . "</td>";
+      
+        } ?>)</i> </div>
                     <div class="categori-part329">
                         <h4>Category</h4>
                         <ul>
@@ -1366,60 +1374,7 @@ include_once 'navbar.php';
                             <label>
                                 <input type="checkbox" checked="checked"> Remember Me</label> <a href="#" class="resbutton3892">Register</a> </div>
                     </div>
-                    <!--              highest part-->
-                    <div class="highest-part302">
-                        <h4>Highest Points</h4>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-<a href="#"><h5>Ahmed Hasan</h5></a>
-<a href="#" class="designetion439">Pundit</a>
-<p>206 points</p>
-</span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-<a href="#"><h5>Ahmed Hasan</h5></a>
-<a href="#" class="designetion439">Pundit</a>
-<p>206 points</p>
-</span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-<a href="#"><h5>Ahmed Hasan</h5></a>
-<a href="#" class="designetion439">Pundit</a>
-<p>206 points</p>
-</span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-<a href="#"><h5>Ahmed Hasan</h5></a>
-<a href="#" class="designetion439">Pundit</a>
-<p>206 points</p>
-</span> </div>
-                        <hr>
-                        <div class="pints-wrapper">
-                            <div class="left-user3898">
-                                <a href="#"><img src="image/images.png" alt="Image"></a>
-                                <div class="imag-overlay39"> <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a> </div>
-                            </div> <span class="points-details938">
-<a href="#"><h5>Ahmed Hasan</h5></a>
-<a href="#" class="designetion439">Pundit</a>
-<p>206 points</p>
-</span> </div>
-                    </div>
-                    <!--               end of Highest points -->
+                
                     <!--          start tags part-->
                     <div class="tags-part2398">
                         <h4>Tags</h4>
@@ -1548,7 +1503,7 @@ Themehttps://t.co/urb3LgsOCi</a></p> <small>about 2 weeks ago</small> </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>Copyright 2017 Ask me | <strong>Sudo  Coder</strong></p>
+                    <p>Copyright 2022 Trippie | <strong>Trippie</strong></p>
                 </div>
                 <div class="col-md-6">
                     <div class="social-right2389"> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a> </div>

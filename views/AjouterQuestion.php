@@ -102,7 +102,7 @@ include_once '../Model/Question.php';
                      
 
                  <div class="publish-button2389">
-                    <button type="submit" class="publis1291" name='ajouter' >Publish your Question</button>
+                    <button type="submit" class="publis1291" name='ajouter' onsubmit="return tester()" >Publish your Question</button>
                 </div>
                 </form>
                 </div>
@@ -201,72 +201,7 @@ include_once '../Model/Question.php';
 								<a href="#" class="resbutton3892">Register</a>
 							</div>
               </div>
-<!--              highest part-->
-              <div class="highest-part302">
-                <h4>Highest Points</h4>  
-                <div class="pints-wrapper">
-                 <div class="left-user3898">
-                     <a href="#"><img src="image/images.png" alt="Image"></a>
-                     <div class="imag-overlay39">
-                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                     </div>
-                 </div>
-                 <span class="points-details938">
-                     <a href="#"><h5>Mohamed Aziz</h5></a>
-                <a href="#" class="designetion439">Pundit</a>
-                     <p>206 points</p>
-                 </span>
-                 
-                  </div>
-                  <hr>
-                           <div class="pints-wrapper">
-                 <div class="left-user3898">
-                     <a href="#"><img src="image/images.png" alt="Image"></a>
-                     <div class="imag-overlay39">
-                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                     </div>
-                 </div>
-                 <span class="points-details938">
-                     <a href="#"><h5>Omezine Aya</h5></a>
-                <a href="#" class="designetion439">Pundit</a>
-                     <p>206 points</p>
-                 </span>
-                 
-                  </div>
-                  <hr>
-                           <div class="pints-wrapper">
-                 <div class="left-user3898">
-                     <a href="#"><img src="image/images.png" alt="Image"></a>
-                     <div class="imag-overlay39">
-                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                     </div>
-                 </div>
-                 <span class="points-details938">
-                     <a href="#"><h5>Aziz Omezine</h5></a>
-                <a href="#" class="designetion439">Pundit</a>
-                     <p>206 points</p>
-                 </span>
-                 
-                  </div>
-                  <hr>
-                  <div class="pints-wrapper">
-                 <div class="left-user3898">
-                     <a href="#"><img src="image/images.png" alt="Image"></a>
-                     <div class="imag-overlay39">
-                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                     </div>
-                 </div>
-                 <span class="points-details938">
-                     <a href="#"><h5>Aymen zwari</h5></a>
-                <a href="#" class="designetion439">Pundit</a>
-                     <p>206 points</p>
-                 </span>
-                 
-                  </div>
-                  <hr>
-             
-              </div>
-<!--               end of Highest points -->
+
 <!--          start tags part-->
 <div class="tags-part2398">
     <h4>Tags</h4>
@@ -426,7 +361,7 @@ include_once '../Model/Question.php';
         </div>
     </div>
 </section>
-  
+<script src="main.js"></script>
       <script src="ckeditor/ckeditor.js"></script>
       <script >
        CKEDITOR.replace('Article_editor');
