@@ -1,7 +1,14 @@
 <?php
 	require_once '../Controller/utilisateurC.php';
-  
+    require_once '../Controller/roleC.php';
+    session_start();
+
+
 	$usersC=new usersC();
+    if (isset($_GET['key'])) {
+        $liste = $usersC->recherche($_GET['key']);
+    } else 
+   
 	$liste=$usersC->afficher(); 
 ?>
 
@@ -9,7 +16,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Trippee</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -21,7 +28,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <script src="https://kit.fontawesome.com/e1c831408d.js" crossorigin="anonymous"></script>
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -40,19 +48,13 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
+       
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                <a href="index.php" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>TRIPEE</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -65,17 +67,22 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <br>
+                    
+
                    
-                   <!-- <div class="nav-item dropdown">
+                    <div class="navbar-nav w-100">
+                    <a href="../view/ajoutadmin.php" class="dropdown-item"><i class="fa-solid fa-universal-access"></i>Register Admin</a>
+                  <!--  <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
+                       
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
                             <a href="blank.html" class="dropdown-item">Blank Page</a>
                         </div>
                     </div> -->
+</div>
                 </div>
             </nav>
         </div>
@@ -92,34 +99,12 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4" method="POST">
-                    <input class="form-control border-0" type="search" name="search" placeholder="Search">
-                    <select name="roles" id="roles">
-
-                <?php
-                    foreach($role as $role){
-                ?>
-<option value="<?= $role['idRole']?>">
-
-                <?php
+                <form class="d-none d-md-flex ms-4" method="GET" action="index.php">
+                    <input class="form-control border-0" type="text" name="key" placeholder="Search">
                  
-                 if (isset($_POST['search'])&& $role['idRole']== $_POST['roles']){?>
-                 selected
-                <?php } ?>
-                 >
-                <?=$role['libelle'] ?>
-                </option>
-<?php
-}
-?>
+                   
+                  
 
-                    </select>
-
-
-
-                  <div class="">
-                      <input type="submit" value="search" name="search">
-                  </div>  
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -273,32 +258,69 @@
             </div>
             Sales Chart End -->
 
+           
 
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">List of users</h6>
-                        <a href="">Show All</a>
+                        <form action="index.php" class="d-none d-md-flex ms-4" method="GET" >
+                        <button type="submit" class="btn btn-primary" id="basic">Sort by</button>
+            <select name="sort"  value="sort">
+                    <option value="" class="d-none d-md-flex ms-4" selected>---Select Option---</option>
+          <option value="a-z" <?php if(isset ($_GET['sort']) && $_GET['sort']=="a-z"){echo "selected";} ?> > Lastname (ASC)</option>
+          <option value="z-a" <?php if(isset ($_GET['sort']) && $_GET['sort']=="z-a"){echo "selected";} ?>>Lastname (DESC)</option>
+      </select>
+
+      
+     
+     
+            </form>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
                                     
-                                    <th scope="col">Id</th>
+                                   
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Lastname</th>
+                                    <th scope="col">Age</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Adress</th>
                                     <th scope="col">Gsm</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Password</th>
                                    
+
+                                                                  
+                                 
+                                   
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                 $db=config::getConnexion();
+                                 
+                                $sort="";
+                                if(isset ($_GET['sort']))
+                                {
+                                if ($_GET['sort']=="a-z")
+                                {
+                                    $sort="ASC";
+                                }
+                                if($_GET['sort']=="z-a")
+                                {
+                                    $sort="DESC";
+                                }
+                            }
+                            $liste=$db->prepare("SELECT * FROM users ORDER BY prenom $sort");
+                           
+                           $liste->execute();
+                        
+                                ?>
                                 <!---<tr>
                                     <td><input class="form-check-input" type="checkbox"></td>
                                    
@@ -345,8 +367,8 @@
 				foreach($liste as $users){
 			?>
 			<tr>
-            <td><?php echo $users ['id'];?></td>
- <td ><img src="<?php echo ($users['image']); ?>"/> </td></div>
+            
+ <td ><img value="<?php echo ($users['image']); ?>"src="<?php echo ($users['image']); ?>"/> </td></div>
      <td><?php echo $users ['nom'];?></td>
      <td><?php echo $users ['prenom'];?></td>
      <td><?php echo $users ['age'];?></td>
@@ -359,11 +381,11 @@
 				
 
 					<td>
-                <button class="btn btn-primary">   <a  href="../view/modifierutilisateur.php?id=<?php echo $users['id'];?>" class="text-light">modifier</a>
+                <button class="btn btn-primary">   <a  href="../view/modifierutilisateur.php?gsm=<?php echo $users['gsm'];?>" class="text-light">modifier</a>
 				</td>
 				
 				<td>
-					<a href="../View/supprimerutilisateur.php?id=<?php echo $users['id']; ?>">Supprimer</a>
+					<a href="../View/supprimerutilisateur.php?gsm=<?php echo $users['gsm']; ?>">Supprimer</a>
 				</td>
 			</tr>
             
@@ -381,7 +403,7 @@
 ?>
 
 
-            <div class="table-responsive">
+           
             <h6 class="mb-0">List of roles</h6>
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
@@ -389,7 +411,7 @@
                                     
                                     <th scope="col">Id</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Description</th>
+                                    <th scope="col">GSM</th>
                                    
                                 </tr>
                             </thead>
@@ -401,18 +423,10 @@
 			<tr>
             <td><?php echo $role ['idRole'];?></td>
      <td><?php echo $role ['libelle'];?></td>
-     <td><?php echo $role ['descriptif'];?></td>
+     <td><?php echo $role ['gsm'];?></td>
      
 
-				
-					<td>
-                <button class="btn btn-primary">   <a  href="../view/modifierRole.php?idRole=<?php echo $role['idRole'];?>" class="text-light">modifier</a>
-				</td>
-				
-				<td>
-					<a href="../View/supprimerRole.php?idRole=<?php echo $role['idRole']; ?>">Supprimer</a>
-				</td>
-			</tr>
+		
             
 			<?php
 				}
@@ -596,4 +610,31 @@
 	   height: 50px;
 	   border-radius: 200px;
    }
+
+   select{
+    width: 100%;
+    height: 50%;
+       margin- right: 100px;
+       border-radius: 5px;
+      
+   }
+   button[id=basic]
+   {
+    text-align: center;
+    margin- right: 100%;
+       height: 27px;
+       width: 50%;
+       cursor: pointer;
+      
+        font-height: 100px;
+        font-size: 12px;
+        
+   }
+  
+   
+a[class=dropdown-item]
+{
+    margin-left:20px;
+}
+  
 </style>

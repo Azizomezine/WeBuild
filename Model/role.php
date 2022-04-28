@@ -3,18 +3,18 @@
  class role{
 
     // private int $NumAbon;
-    private $idRole=null;
+   
      private string  $libelle;
-     private string $descriptif;
+     private string $gsm;
     
      
      
- public function  __construct ($l,$d) //$a,
+ public function  __construct ($l,$g) //$a,
     {
     //$this->NumAbon=$a;
     
     $this->libelle=$l;
-    $this->descriptif=$d;
+    $this->gsm=$g;
     
     
     }
@@ -31,9 +31,9 @@
     {
         return $this->libelle;
     }  
-    public function getdescriptif()
+    public function getgsm()
     {
-        return $this->descriptif;
+        return $this->gsm;
     }  
    
     }

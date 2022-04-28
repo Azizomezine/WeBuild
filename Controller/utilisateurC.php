@@ -1,5 +1,6 @@
 <?php
 require '../config.php';
+
 class usersC{
 
     public function addUser ($users){
@@ -7,8 +8,7 @@ class usersC{
         $pdo =config::getConnexion();
     
     try{
-
-
+        
         $query =$pdo->prepare(
     
             "INSERT INTO users (image,nom,prenom,age,username,adresse,gsm,email,password)
@@ -27,9 +27,11 @@ class usersC{
             'adresse'=>$users->getadresse(),
             'gsm'=>$users->getgsm(),
             'email'=>$users->getemail(),
-            'password'=>$users->getpassword()
+            'password'=>$users->getpassword(),
+            
+           
         ]);
-    
+ 
     } catch (PDOException $e)
     {
      $e ->getMessage();
@@ -51,11 +53,11 @@ class usersC{
     }
 
 
- public function supprimer($id){
-            $sql="DELETE FROM users WHERE id=:id";
+ public function supprimer($gsm){
+            $sql="DELETE FROM users WHERE gsm=:gsm";
             $db=config::getConnexion();
             $query=$db->prepare($sql);
-            $query->bindValue(':id',$id);
+            $query->bindValue(':gsm',$gsm);
             try{
                 $query->execute();//Pour remplacer ligne bindValue w ligne hédhy execute(['num'=>$num]);
             }catch(PDOException $e){
@@ -63,8 +65,8 @@ class usersC{
             }
         }
 
-        public function recupererusers($id){
-            $sql="SELECT * from users where id=$id";
+        public function recupererusers($gsm){
+            $sql="SELECT * from users where gsm=$gsm";
             $db = config::getConnexion();
             try{
 				$query=$db->prepare($sql);
@@ -79,7 +81,7 @@ class usersC{
 		}
 
 
-        function modifierusers($users, $id){
+        function modifierusers($users, $gsm){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
@@ -90,10 +92,10 @@ class usersC{
                         age=:age,
                         username=:username,
                         adresse=:adresse,
-                        gsm=:gsm,
+                   
 						email = :email,
 						password = :password
-					WHERE id = :id'
+					WHERE gsm = :gsm'
 				);
 				$query->execute([
                     'image' => $users->getimage(),
@@ -105,7 +107,8 @@ class usersC{
                     'gsm' => $users->getgsm(),
 					'email' => $users->getEmail(),
 					'password' => $users->getPassword(),
-					'id' => $id
+                    
+                    
 				]);
 			
 			} catch (PDOException $e) {
@@ -113,15 +116,15 @@ class usersC{
 			}
 		}
 
-      public  function connexionUser($email,$password)
+      public  function connexionUser($username,$password)
         {
-            $sql="SELECT * FROM users WHERE email='" .$email. "' and password='".$password."'";
+            $sql="SELECT * FROM users WHERE username='" .$username. "' and password='".$password."'";
             $db=config::getConnexion();
             try{
                 $query=$db->prepare($sql);
                 $query->execute();
                 $count=$query->rowCount();
-                if($count==8)
+                if($count==0)
                 {
                     $message ="pseudo ou le mot de passe est incorrect";
                 }else{
@@ -137,18 +140,23 @@ class usersC{
         }
 
 
-        public function tri() {
-            $db=config::getConnexion();
-            try { 
-                $query=$db->prepare("SELECT * FROM users ORDER BY nom");
-                while( $result=$query->fetch_Array())
-                $query->execute();
-                $result=$query->fetchAll();
-                //$result=$db->query("SELECT * FROM users");hédhy résumé l 3 lignes li kbal
-                return $result;
-            }catch(PDOException $e){
-                $e->getMessage();
+
+        public function recherche($key)
+        {
+            $sql = "SELECT * FROM users WHERE gsm LIKE '%$key%' OR prenom LIKE '%$key%' OR nom LIKE '%$key%' ";
+            $db = config::getConnexion() ;
+            try {
+                $liste = $db->query($sql);
+                return $liste;
+            } catch (Exception $e) {
+                die('Erreur: ' . $e->getMessage());
             }
         }
-    }
+
+  
+      
+
+}
+
+
 ?>

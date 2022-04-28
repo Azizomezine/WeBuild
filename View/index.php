@@ -26,6 +26,7 @@ isset($_POST["password"]))
 }else
 $message="Missing information";
 }
+
 ?>
 
 
@@ -39,7 +40,7 @@ $message="Missing information";
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<title>Login Form - Pure Coding</title>
+	<title>Login Form</title>
 </head>
 <body>
 <div class="img">
@@ -47,7 +48,7 @@ $message="Missing information";
    </div>
    
 	<div class="container">
-		<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" class="login-email">
+		<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" class="login-email">
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Login</p>
 			<div class="input-group">
 				<input type="text" placeholder="Username" name="username"id="username"  required>
@@ -56,40 +57,19 @@ $message="Missing information";
 				<input type="password" placeholder="Password" name="password"id="password" required>
 			</div>
 			<div class="input-group">
-				<button name="submit" class="btn">Login</button>
+				<button name="submit" class="btn" >Login</button>
 			</div>
 			<p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p>
 		</form>
 	</div>
 </body>
-<?php
-if($_SERVER["REQUEST_METHOD"]=="POST")
-{
 
-	if($row["usertype"]=="user")
-	{	
-		$username=$_POST["username"];
-		$password=sha1($_POST["password"]);
-
-		header("location:userhome.php");
-	}
-
-	elseif($row["usertype"]=="admin")
-	{
-
-		$_SESSION["username"]=$username;
-		
-		header("location:adminhome.php");
-	}
-
-
-}
-
-
-
-
-?>
 
 
 
 </html>
+
+
+
+
+

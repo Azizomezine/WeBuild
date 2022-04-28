@@ -3,7 +3,7 @@
  class users{
 
     // private int $NumAbon;
-     private  $id = null;
+    
      private  $image=null;
      private $nom=null;
      private  $prenom=null;
@@ -35,10 +35,8 @@
     {
         return $this->NumAbon;
     }*/
-    public function getid():int
-    {
-        return $this->id;
-    }  
+ 
+   
     public function getimage():string
     {
         return $this->image;
@@ -76,8 +74,7 @@
         return $this->password;
     }
 
-
-
+    
     function setimage(string $image){
         $this->image=$image;
     }

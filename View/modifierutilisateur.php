@@ -42,7 +42,7 @@
                     $_POST['password'])
 			;
 			
-            $usersC->modifierusers($users, $_GET['id']);
+            $usersC->modifierusers($users, $_GET['gsm']);
             header('refresh:2;url=../dashmin-1.0.0/index.php');
         }
         else
@@ -58,15 +58,16 @@
     <title>User Display</title>
 </head>
     <body>
+        
        
         
         <form value="modifier" name="modifier" action="" method="POST">
             <table  align="center">
             <?php
-            if (isset($_GET['id'])){
-				$users = $usersC->recupererusers($_GET['id']);}
+            if (isset($_GET['gsm'])){
+				$users = $usersC->recupererusers($_GET['gsm']);}
             ?>
-            <td><input type="hidden" name="id" value="<?php echo $users['id'];?>"></td>
+            
            
             <tr>
 
@@ -81,7 +82,7 @@
                         <label for="nom">Name:
                         </label>
                     </td>
-                    <td><input type="text" name="nom" id="nom" maxlength="20"value="<?php echo $users['nom'];?>"></textarea></td>
+                    <td><input  type="text" name="nom" id="nom" maxlength="20"value="<?php echo $users['nom'];?>"></textarea></td>
                 </tr>
                 <tr>
                     <td>

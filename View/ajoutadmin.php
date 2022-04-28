@@ -1,5 +1,5 @@
 <?php 
-include 'navbar1.php';
+
 include '../controller/roleC.php';
 include '../controller/utilisateurC.php';
 include '../model/utilisateur.php';
@@ -69,6 +69,7 @@ if(
 <!DOCTYPE html>
 <html>
 <head>
+<button><a href="../dashmin-1.0.0/index.php">Return to dashboard</a></button>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href=
@@ -91,7 +92,7 @@ if(
     </script>
 	
 
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="">
 	
 	<title>Register Form</title>
 	<script>
@@ -120,6 +121,7 @@ if(
 	 
 	}
   </script>
+  
 </head>
 
 <body>
@@ -127,7 +129,10 @@ if(
 
 
 
-
+<div class="img">
+     <img src="" alt="">
+   </div>
+  
 	<div class="container">
 	<form action="" method="POST" class="login-email" onSubmit="return validateForm()">
 	     
@@ -154,7 +159,7 @@ if(
 		   <tr>
 		   <td>
 			 <div class="input-group">
-			   <input type="number" placeholder="Age" name="age" min="16" max="99" required>Years old
+			   <input type="number" placeholder="Age" name="age" min="16" max="99">Years old
 		   
 			   </div>
 		 </td>
@@ -192,28 +197,23 @@ if(
 <div>		
 <select name="libelle" id="libelle">
 <option value="" selected disabled >Choose your role</option >
-	<option value="customer">Customer</option>
-	<option value="company">Company</option>
+	<option value="admin">Admin</option>
+	
 </select></div>
 <br>
 <br>
-		
-			<div class="input-group">
-				
-				<button name="submit" value="submit" class="submitbtn" >Register</button>
-				
-			</div>
-		
-			<p class="login-register-text">Have an account? <a href="index.php">Login Here</a>.</p>
-			
-		</form>
 
+<div class="btn-box">
+                <pre> <input type="submit" value="Envoyer">   </pre>
+				
+            </div>
 	</div>
 	<?php if($s==1 && $r==1 )
 {
 	
 $usersC->addUser($users);
 $roleC ->addrole($role);
+
 }
 ?>  
 <!--  Including app.js jQuery Script -->
@@ -222,51 +222,117 @@ $roleC ->addrole($role);
 </html>
 
 <style>
-
-	  html,body{
-    display: grid;
-    height: 100%;
-    width: 100%;
-    place-items: center;
-    background: #F1F3F4;
-  }
-  div[class="container"]
-  {
-	  margin-top:20%;
-  }
-	button{
-		font-family: 'Poppins', sans-serif;
-    border-color: #1A73E8;
-    
-	width: 100%;
-	
-	margin-bottom: 6%;
-    place-items: center;
-    padding: 15px 20px;
-    text-align: center;
-    border: none;
-    background: #1A73E8;
-	transform: translateY(-5px);
-    border-radius: 6px;
-    font-size: 1.2rem;
-	
-    color: #FFFF;
-    cursor: pointer;
-    transition: .3s;
-	}
-
-	input[class=age]
-	{
-		width:50%;
-	}
-	input[class=email]
-	{
-		margin-top:10%;
-	}
-.error-message{
-color:#ff5b5b;
-display:inline;	
-display:none;
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
+.container{
+    width: 360px;
+    height: 500px;
+    margin: 8% auto ;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+}
+
+.container form{
+    width: 280px;
+    position: absolute;
+    top: 0px;
+    left: 40px;
+}
+form input{
+    width: 100%;
+    padding: 10px 5px;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: 1px solid #999;
+    outline : none ; 
+    background: transparent;
+
+}
+form select{
+	width: 100%;
+    padding: 10px 5px;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: 1px solid #999;
+    outline : none ; 
+    background: transparent;
+
+}
+::placeholder{
+    color :#777;
+}
+.btn-box{
+    width: 110px;
+    height: 35px;
+    margin: 0 10px;
+    background: linear-gradient(right,#1a73e8,#18abf4ad);
+    border-radius: 30px;
+    border :0; 
+    outline : none ; 
+    color :#fff ; 
+    cursor: pointer;
+}
+input[type="submit"] {
+    width: 110px;
+    height: 30px auto;
+    text-align: center;
+	margin-top:auto;
+	margin-left:70px;
+	
+}
+
+input[type="submit"]:hover {
+    width: 110px;
+    height: 35px;
+    margin: 0 10px;
+    background: linear-gradient(to right, #1a73e8, #18abf4ad);
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+	margin-top:auto;
+	margin-left:70px;
+}
+
+input[type="reset"] {
+    width: 110px;
+    height: 30px auto;
+    text-align: center;
+}
+
+input[type="reset"]:hover {
+    width: 110px;
+    height: 35px;
+    margin: 0 10px;
+    background: linear-gradient(to right, #1a73e8, #18abf4ad);
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+}
+button{
+	width: 110px;
+    height: 30px auto;
+    text-align: center;
+	background: linear-gradient(to right, #1a73e8, #18abf4ad);
+	border-color:#1a73e8;
+}
+button:hover{
+width: 110px;
+    height: 35px;
+    margin: 0 10px;
+    background: linear-gradient(to right, #1a73e8, #18abf4ad);
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+}
 </style>
