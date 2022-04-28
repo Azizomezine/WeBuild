@@ -6,21 +6,22 @@ class LeQuestion{
     private  $Categ=null;
     private $Date_publication=null;
     private $QuestionStat=null;
-
+    private $IdCfk=null;
   
-    function __construct(string $TitreQ, string $DesQ,string $categ, string $Date_publication, string $QuestionStat){
-			
+    function __construct(string $TitreQ, string $DesQ,string $categ, string $Date_publication, string $QuestionStat,int $IdCfk){
         $this->TitreQ=$TitreQ;
         $this->DesQ=$DesQ;
         $this->categ=$categ;
         $this->Date_publication=$Date_publication;
-    
      $this->QuestionStat=$QuestionStat;
-       
+     $this->IdCfk=$IdCfk;
     }
 
     function getRefQ(): int{
         return $this->RefQ;
+    }
+    function getIdCfk(): int{
+        return $this->IdCfk;
     }
     function getTitreQ(): string{
         return $this->TitreQ;
