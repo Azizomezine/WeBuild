@@ -1,0 +1,101 @@
+append variables
+  -
+    var routs= [
+      {
+        destination:'Dhaka - Chittagong',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Sylhet',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Chittagong',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Chittagong',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Coxs Bazar',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Sylhet',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Coxs Bazar',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Chittagong',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Coxs Bazar',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Sylhet',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Chittagong',
+        amount:'From $100',
+      },
+      {
+        destination:'Dhaka - Coxs Bazar',
+        amount:'From $100',
+      },
+    ];
+
+mixin RoutsItem(config) 
+  h5.text-light!=config.destination
+  h6.text-light.fw-normal.fs-0=config.amount
+  i.fas.fa-arrow-right.text-light.mt-4
+  a.stretched-link(href='#!')
+
+mixin PopulerRoutes
+  +Section('container-fluid').py-0#flights
+    .row.h-100
+      .col-lg-7.mx-auto.text-center.mb-6
+        h5.fw-bold.fs-3.fs-lg-5.lh-sm.mb-3 Flights to Popular Places at the Best Costs
+    .row.g-0.flex-center 
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#240D8C; min-height:230px; ")     
+          +RoutsItem(routs[0])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#3011BB; min-height:230px;")  
+          +RoutsItem(routs[1])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2 
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#4914DC; min-height:230px;") 
+          +RoutsItem(routs[2])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2 
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#6213D2; min-height:230px;") 
+          +RoutsItem(routs[3])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#4611BC; min-height:230px;")  
+          +RoutsItem(routs[4])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2 
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#7013CE; min-height:230px;") 
+          +RoutsItem(routs[5]) 
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2 
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#4611BC; min-height:230px;")    
+          +RoutsItem(routs[6])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#6213D2; min-height:230px;")  
+          +RoutsItem(routs[7])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#240D8C; min-height:230px;") 
+          +RoutsItem(routs[8])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#4914DC; min-height:230px;") 
+          +RoutsItem(routs[9])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#3011BB; min-height:230px;") 
+          +RoutsItem(routs[10])
+      .col-12.col-sm-4.col-md-3.col-lg-4.col-xl-2
+        .d-flex.flex-column.justify-content-center.px-3(style="background-color:#4611BC; min-height:230px;") 
+          +RoutsItem(routs[11])  

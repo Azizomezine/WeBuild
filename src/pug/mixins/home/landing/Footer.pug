@@ -1,0 +1,42 @@
+mixin FooterList(...items)
+  each item in items
+    li.mb-2
+      a.text-800.fw-bold.text-decoration-none(href='#!')
+        =item
+
+mixin Footer
+  +Section.py-0.overflow-hidden
+    .row
+      .col-6.col-sm-4.col-lg-6
+        .py-7
+          img.d-inline-block(src=`${CWD}assets/img/gallery/logo.png` width='50' alt='logo')
+          span.fw-bold.fs-4.text-primary.ms-2 voyage
+          ul.list-unstyled.mt-4
+            +FooterList('News','Terms & Conditions','Privacy','About Us','FAQs')
+
+      .col-6.col-8.col-lg-6.bg-primary-gradient.bg-offcanvas-right
+        .p-3.py-7.p-md-7
+          p.text-light
+            i.fas.fa-phone-alt.me-3
+            span.text-light +3930219390
+          p.text-light
+            i.fas.fa-envelope.me-3
+            span.text-light something@gmail.com
+          p.text-light
+            i.fas.fa-map-marker-alt.me-3
+            span.text-light.lh-lg 333, Lorem Street, Albania, Alifornia
+              br
+              | United States of America
+          .mt-6
+            a(href='#!')    
+              img.me-3(src=`${CWD}assets/img/icons/facebook.svg`  alt='...')
+            a(href='#!')  
+              img.me-3(src=`${CWD}assets/img/icons/twitter.svg`  alt='...')
+            a(href='#!')  
+              img.me-3(src=`${CWD}assets/img/icons/instagram.svg`  alt='...')
+          p.mt-3.text-light.text-center.text-md-start  Made with&nbsp;
+            svg.bi.bi-suit-heart-fill(xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='#EB6453' viewBox='0 0 16 16')
+              path(d='M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z')
+
+            |&nbsp;by&nbsp;
+            a(href='https://themewagon.com/' target='_blank').text-light ThemeWagon     

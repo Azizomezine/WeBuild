@@ -1,0 +1,112 @@
+append variables
+  -
+    var testimonials= [
+      {
+        image:'maldives.png',
+        title:'Mermaid Beach Resort: The most joyful way to spend your holiday',
+        time:'20:04:32:21',
+        type:'trending',
+        prevPrice:'$200',
+        price:'$175',
+        country:'Maldives',
+        days:'4 days',
+        discount:'-15%', 
+      },
+      {
+        image:'cinnamon.png',
+        title:'Bora Bora: Enjoy a romantic cruise tour of at the sunny side of life',
+        time:'20:04:32:21',
+        type:'trending',
+        prevPrice:'$300',
+        price:'$250',
+        country:'Maldives',
+        days:'4 days',
+        discount:'-15%',
+      },
+      {
+        image:'dhigu.png',
+        title:'Fihalhohi Island Resort: Luxury destination without compromise',
+        time:'20:04:32:21',
+        type:'trending',
+        prevPrice:'$375',
+        price:'$300',
+        country:'Maldives',
+        days:'4 days',
+        discount:'-15%',
+      },
+      
+    ];
+
+
+mixin Items(config)
+   .col-md-4.mb-3.mb-md-0.h-100
+    .card.card-span.h-100.text-white
+      img.img-fluid(src=`${CWD}assets/img/gallery/${config.image}` alt='...').h-100
+      .card-img-overlay.ps-0
+        span.badge.bg-primary.ms-3.me-1.p-2
+          i.fas.fa-clock.me-1
+          span=config.time
+        span.badge.bg-secondary.p-2
+          i.fas.fa-bolt.me-1
+          span=config.type
+          i.fas.fa-bolt.ms-1     
+      .card-body.ps-0 
+        h5.fw-bold.text-1000.mb-4.text-truncate=config.title 
+        .d-flex.align-items-center.justify-content-start
+          span.text-800.fs--1.me-2
+            i.fas.fa-map-marker-alt
+          span.text-900.me-3=config.country
+          span.text-800.fs--1.me-2
+            i.fas.fa-calendar
+          span.text-900=config.days
+        p.text-decoration-line-through.text-900.mt-3.mb-0=config.prevPrice 
+        h1.mb-3.text-primary.fw-bolder.fs-4
+          span=config.price
+          span.text-900.fs--1.fw-normal /Per person
+        span.badge.bg-soft-secondary.p-2
+          i.fas.fa-tag.text-secondary.fs--1.me-1
+          span.text-secondary.fw-normal.fs-1=config.discount 
+mixin FlashDeals
+  section#testimonial
+    .container
+      .row.h-100
+        .col-lg-7.mx-auto.text-center.mb-6
+          h5.fw-bold.fs-3.fs-lg-5.lh-sm.mb-3 Flash Deals
+        .col-12
+          #carouselTestimonials.carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+              .carousel-item.active(data-bs-interval='10000')
+                .row.h-100.align-items-center.g-2                
+                  +Items(testimonials[0])                                                                    
+                  +Items(testimonials[1])                                                                    
+                  +Items(testimonials[2])                                                                    
+              .carousel-item(data-bs-interval='5000')
+                .row.h-100.align-items-center.g-2                
+                  +Items(testimonials[0])                                                                    
+                  +Items(testimonials[1])                                                                    
+                  +Items(testimonials[2])                      
+              .carousel-item(data-bs-interval='3000')
+                .row.h-100.align-items-center.g-2                                  
+                  +Items(testimonials[0])                                                                    
+                  +Items(testimonials[1])                                                                    
+                  +Items(testimonials[2])                       
+              .carousel-item
+                .row.h-100.align-items-center.g-2          
+                  +Items(testimonials[0])                                                                    
+                  +Items(testimonials[1])                                                                    
+                  +Items(testimonials[2])    
+              .row
+                button.carousel-control-prev(type='button' data-bs-target='#carouselTestimonials' data-bs-slide='prev')
+                  span.carousel-control-prev-icon(aria-hidden='true')
+                  span.visually-hidden Previous
+                button.carousel-control-next(type='button' data-bs-target='#carouselTestimonials' data-bs-slide='next')
+                  span.carousel-control-next-icon(aria-hidden='true')
+                  span.visually-hidden Next                                    
+            .row.flex-center
+              .col-auto.position-relative.z-index-2
+                ol.carousel-indicators.me-xxl-7.me-xl-4.me-lg-7
+                  li.active(data-bs-target='#carouselTestimonials' data-bs-slide-to='0')
+                  li(data-bs-target='#carouselTestimonials' data-bs-slide-to='1')
+                  li(data-bs-target='#carouselTestimonials' data-bs-slide-to='2')
+                  li(data-bs-target='#carouselTestimonials' data-bs-slide-to='3')
+

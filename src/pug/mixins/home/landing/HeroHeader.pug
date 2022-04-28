@@ -1,0 +1,133 @@
+mixin HeroHeader
+  section.mt-7.py-0
+    +Background({ image: `${CWD}assets/img/gallery/hero-section-1.png`, attrs: { style: {} }, className: 'w-50 bg-right d-none d-lg-block' })
+    .container 
+      .row
+        .col-lg-6.py-5.py-xl-5.py-xxl-7
+          h1.display-3.text-1000.fw-normal Let’s make a tour
+          h1.display-3.text-primary.fw-bold Discover the beauty
+          .pt-5
+            nav
+              .nav.nav-tabs.voyage-tabs#nav-tab(role='tablist')
+                button.nav-link.active#nav-home-tab(data-bs-toggle='tab' data-bs-target='#nav-home' type='button' role='tab' aria-controls='nav-home' aria-selected='true')
+                  i.fas.fa-map-marker-alt
+                button.nav-link#nav-profile-tab(data-bs-toggle='tab' data-bs-target='#nav-profile' type='button' role='tab' aria-controls='nav-profile' aria-selected='false') 
+                  i.fas.fa-plane
+                button.nav-link#nav-contact-tab(data-bs-toggle='tab' data-bs-target='#nav-contact' type='button' role='tab' aria-controls='nav-contact' aria-selected='false') 
+                  i.fas.fa-hotel
+              .tab-content#nav-tabContent
+                .tab-pane.fade.show.active#nav-home(role='tabpanel' aria-labelledby='nav-home-tab')
+                  form.row.g-4.mt-5
+                    .col-sm-6.col-md-6.col-xl-5
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputAddress1') Address 1
+                        input.form-control.input-box.form-voyage-control#inputAddress1(type='text' placeholder='From where')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-map-marker-alt
+                    .col-sm-6.col-md-6.col-xl-5
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputAddress2') Address 2
+                        input.form-control.input-box.form-voyage-control#inputAddress2(type='text' placeholder='To where')  
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-map-marker-alt 
+                    .col-sm-6.col-md-6.col-xl-5
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputdateOne(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                    .col-sm-6.col-md-6.col-xl-5
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputDateTwo(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                    .col-sm-6.col-md-6.col-xl-5
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputPersonOne') Person
+                        select#inputPersonOne.form-select.form-voyage-select.input-box
+                          option(selected) 2 Adults
+                          option 2 Adults 1 children
+                          option 2 Adults 2 children
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                            i.fas.fa-user 
+                    .col-12.col-xl-10.col-lg-12.d-grid.mt-6
+                      button.btn.btn-secondary(type='submit') Search Packages
+                .tab-pane.fade#nav-profile(role='tabpanel' aria-labelledby='nav-profile-tab') 
+                  form.row.g-4.mt-5
+                    .col-6
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputAddressThree') Address 1
+                        input.form-control.input-box.form-voyage-control#inputAddressThree(type='text' placeholder='From where')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-map-marker-alt
+                    .col-6
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputAddressFour') Address 2
+                        input.form-control.input-box.form-voyage-control#inputAddressFour(type='text' placeholder='To where')  
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-map-marker-alt 
+                    .col-6
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputDateThree(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                  
+                    .col-6
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputDateFour(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                    .col-6
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputPeopleTwo') People
+                        select#inputPeopleTwo.form-select.form-voyage-select.input-box
+                          option(selected) 2 Adults
+                          option 2 Adults 1 children
+                          option 2 Adults 2 children
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                            i.fas.fa-user 
+                    .col-12.d-grid.mt-6
+                      button.btn.btn-secondary(type='submit') Search Packages
+                .tab-pane.fade#nav-contact(role='tabpanel' aria-labelledby='nav-contact-tab') 
+                  form.row.g-4.mt-5
+                    .col-6
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputDateFive(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                    .col-6
+                      .input-group-icon
+                        input.form-control.input-box.form-voyage-control#inputDateSix(type='date')
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                          i.fas.fa-calendar
+                    .col-6
+                      .input-group-icon
+                        label.form-label.visually-hidden(for='inputPeopleThree') Person
+                        select#inputPeopleThree.form-select.form-voyage-select.input-box
+                          option(selected) 2 Adults
+                          option 2 Adults 1 children
+                          option 2 Adults 2 children
+                        span.nav-link-icon.text-800.fs--1.input-box-icon
+                            i.fas.fa-user 
+                    .col-12.d-grid.mt-6
+                      button.btn.btn-secondary(type='submit') Search Packages
+       
+         
+  +Section('container-fluid').py-0.overflow-hidden      
+    .row
+      .col-lg-6.px-0
+        img.img-fluid.order-md-0.mb-4.h-100.fit-cover(src=`${CWD}assets/img/gallery/hero-section-2.png`  alt='...')    
+      .col-lg-6.px-0.bg-primary-gradient.bg-offcanvas-right
+        .mx-6.mx-xl-8.my-8
+          .align-items-center.d-block.d-flex.mb-5
+            img(src=`${CWD}assets/img/icons/locations.png`  alt='...').img-fluid.me-3.me-md-2.me-lg-4
+            .flex-1.align-items-center.pt-2
+              h5.fw-bold.text-light Visit the greatest places
+          .align-items-center.d-block.d-flex.mb-5
+            img(src=`${CWD}assets/img/icons/schedule.png`  alt='...').img-fluid.me-3.me-md-2.me-lg-4
+            .flex-1.align-items-center.pt-2
+              h5.fw-bold.text-light Make your own plans.
+          .align-items-center.d-block.d-flex.mb-5
+            img(src=`${CWD}assets/img/icons/save.png`  alt='...').img-fluid.me-3.me-md-2.me-lg-4
+            .flex-1.align-items-center.pt-2
+              h5.fw-bold.text-light Save 50% on your next trip
+                

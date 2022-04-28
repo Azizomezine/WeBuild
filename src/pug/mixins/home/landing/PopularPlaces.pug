@@ -1,0 +1,94 @@
+append variables
+  -
+    var places= [
+      {
+        image:'agra.png',
+        country:'Agra',
+        packages:'10 Packages',
+      },
+      {
+        image:'kualalumpur.png',
+        country:'Kuala Lumpur',
+        packages:'10 Packages',
+      },
+      {
+        image:'munich.png',
+        country:'Munich',
+        packages:'10 Packages',
+      },
+      {
+        image:'paris.png',
+        country:'Paris',
+        packages:'10 Packages',
+      },
+      {
+        image:'vienna.png',
+        country:'Vienna',
+        packages:'10 Packages',
+      },
+      {
+        image:'pregue.png',
+        country:'Pregue',
+        packages:'10 Packages',
+      },
+      {
+        image:'agra.png',
+        country:'Agra',
+        packages:'10 Packages',
+      },
+
+    ];
+
+
+mixin PopularPlacesItem(config)
+  .card.card-span.h-100.text-white
+    img.img-fluid.h-100.w-100(src=`${CWD}assets/img/gallery/${config.image}` height='375'  alt='...')
+    .card-img-overlay.ps-0.d-flex.flex-column.justify-content-between.bg-voyage-gradient
+      .mt-auto.px-4.mb-1
+        h3.fs-1.fs-md-2.text-white=config.country
+        span.text-light.fs--1.me-1
+          i.fas.fa-gift
+        span.text-light.me-3=config.packages
+    a.stretched-link(href='#!')
+
+mixin PopularPlaces
+  section.py-7#places.overflow-hidden
+    .container.bg-offcanvas-gray-right
+      .row.gx-2.mb-2
+        .col-12.col-md-12.col-lg-4
+          .bg-primary-gradient.bg-offcanvas.h-100
+            .row.g-0.justify-content-end
+              .col-12
+                .p-6.py-md-5.px-md-3.py-lg-8.text-light
+                  img.mb-5(src=`${CWD}assets/img/icons/icon-location.svg`  alt='...')
+                  h2.mb-2.text-light Popular places
+                  p Enjoy the benefits of our packages to the
+                    br.d-none.d-lg-block
+                    |sites where our visitors have more fun. 
+                    br.d-none.d-lg-block
+                    |Properly arranged with low costing.
+        .col-sm-6.col-lg-4
+          +PopularPlacesItem(places[0])
+        .col-sm-6.col-lg-4
+          +PopularPlacesItem(places[1])
+      .row.g-2    
+        .col-sm-6.col-lg-4
+          .row.g-2
+            .col-12 
+              +PopularPlacesItem(places[2])
+            .col-12 
+              +PopularPlacesItem(places[2])
+        .col-sm-6.col-lg-4
+          .row.g-2 
+            .col-12 
+              +PopularPlacesItem(places[3])
+            .col-12 
+              +PopularPlacesItem(places[4])
+        .col-sm-12.col-lg-4
+          .bg-secondary-gradient.h-100.d-flex.align-items-center
+            .text-light.p-4.p-sm-6.p-lg-0.px-xxl-6
+              p.fs-1.px-4.mb-6 Wanna travel to the most thrilling spot on the planet? We've set a bunch of surprises for you.
+            
+              a.btn.btn-lg.text-light.fs-2(href='#!' role='button') Click to view more
+                svg.bi.bi-arrow-right-circle.ms-5(xmlns='http://www.w3.org/2000/svg' width='55' height='55' fill='currentColor' viewBox='0 0 16 16')
+                  path(fill-rule='evenodd' d='M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z')

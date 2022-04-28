@@ -1,0 +1,15 @@
+mixin Cta 
+  section
+    +Background({ image: `${CWD}assets/img/gallery/cta-bg.png`, attrs: { style: { 'background-position': 'center', 'background-size': 'cover',} }, className: '' })
+    .container
+      .row.flex-center
+        .col-lg-6.text-center
+          img.mb-5.mb-lg-0(src=`${CWD}assets/img/gallery/cta-mobile.png` alt='...')
+        .col-lg-6.text-center
+          h1.fs-6.pe-xxl-10 Get the app
+          .mt-4.pe-xxl-10
+            a(href='https://play.google.com/store/apps' target='_blank')
+              img.me-3(src=`${CWD}assets/img/gallery/google-play.png` width='170'  alt='...')
+            a(href='https://www.apple.com/app-store/' target='_blank')  
+              img(src=`${CWD}assets/img/gallery/app-store.png` width='170' alt='...')
+            

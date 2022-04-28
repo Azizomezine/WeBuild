@@ -1,0 +1,92 @@
+append variables
+  -
+    var hotels= [
+      {
+        image:'moon-house-hotel.png',
+        title:'Moon House Hotel',
+        price:'$175',
+        country:'Soi Petchburi 19, Bankok',
+      },
+      {
+        image:'blue-mosque-hotel.png',
+        title:'Blue Mosque Hotel',
+        price:'$175',
+        country:'Dismesi Sokak, Istanbul',
+      },
+      {
+        image:'hotel-royal.png',
+        title:'Hotel Royal',
+        price:'$175',
+        country:'Kedewatan, Bali',
+      },
+      {
+        image:'boutique-hotel.png',
+        title:'The Rin Boutique Hotel',
+        price:'$175',
+        country:'Bang Lamung, Pattaya',
+      },
+      {
+        image:'canals.png',
+        title:'City of canals',
+        price:'$175',
+        country:'Maldives',
+      },
+      {
+        image:'mountain-venture.png',
+        title:'Mountain Venture',
+        price:'$175',
+        country:'Maldives',
+      },
+
+    ];
+
+mixin HotelsItem(config)
+  .card.card-span.h-100.text-white
+    img.img-fluid.h-100.w-100(src=`${CWD}assets/img/gallery/${config.image}` height='375'  alt='...')
+    .card-img-overlay.ps-0.d-flex.flex-column.justify-content-between.bg-voyage-gradient
+      .mt-auto.px-4
+        h3.fs-1.fs-md-2.text-white=config.title
+        .d-flex.align-items-center.justify-content-start
+          span.text-light.fs--1.me-1
+            i.fas.fa-map-marker-alt
+          span.text-light.me-md-3=config.country
+        p.mb-0.mt-3 Starts from	
+        h1.mb-2.text-light.fw-bolder.fs-2.fs-md-4
+          span=config.price
+          span.text-light.fs--1.fw-normal /Per person
+    a.stretched-link(href='#!')      
+
+mixin DiscoverHotels
+  section.py-7.overflow-hidden#hotels
+    .container.bg-offcanvas-gray-right
+      .row.gx-2
+        .col-sm-6.col-lg-4
+          .bg-primary-gradient.h-100.d-flex.align-items-end
+            .row.g-0.justify-content-start
+              .col-xl-9
+                .p-3.px-lg-4.text-light
+                  img.mb-5(src=`${CWD}assets/img/icons/icon-hotel.svg`  alt='...')
+                  h2.mb-3.text-light Discover our best hotels to stay
+                  p Bundle tickets to any hotel to save on your whole order. Follow bundle it! method by picking the right hotel accommodation once you add your tickets to your cart.
+        .col-sm-6.col-lg-4
+          .row.g-2
+            .col-12 
+              +HotelsItem(hotels[0])
+            .col-12 
+              +HotelsItem(hotels[1])
+        .col-sm-6.col-lg-4
+          .row.g-2 
+            .col-12 
+              +HotelsItem(hotels[2])
+            .col-12 
+              +HotelsItem(hotels[3])
+        .col-sm-6.col-lg-8.gy-2
+          .bg-secondary-gradient.h-100.d-flex.align-items-center
+            .text-light.py-6
+              .row
+                .col-12.col-xl-6
+                  p.fs-1.px-5 In our offers, we have more hotels. Just to make your stay easy for your best interests.
+                .col-12.col-xl-6.text-end
+                  a.btn.btn-lg.text-light.fs-1.fs-sm--1.fs-md-1.px-5(href='#!' role='button') Click to view more
+                    svg.bi.bi-arrow-right-circle.ms-3(xmlns='http://www.w3.org/2000/svg' width='55' height='55' fill='currentColor' viewBox='0 0 16 16')
+                      path(fill-rule='evenodd' d='M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z')

@@ -1,0 +1,32 @@
+extends layouts/LayoutTheme
+include mixins/home/landing/HeroHeader
+include mixins/home/landing/FlashDeals
+include mixins/home/landing/PopularPlaces
+include mixins/home/landing/ShareTrip
+include mixins/home/landing/Packages
+include mixins/home/landing/Activities
+include mixins/home/landing/DiscoverHotels
+include mixins/home/landing/Blog
+include mixins/home/landing/PopularRoutes
+include mixins/home/landing/Cta
+include mixins/home/landing/Footer
+
+
+
+append variables
+  - var currentPage = 'index'
+
+prepend scripts
+  
+append content
+  +HeroHeader
+  +FlashDeals
+  +PopularPlaces
+  +ShareTrip
+  +Packages
+  +Activities
+  +DiscoverHotels
+  +Blog
+  +PopulerRoutes
+  +Cta
+  +Footer
