@@ -8,8 +8,8 @@ class QuestionC {
 
 public function ajouterquestion($Question)
     {
-		$sql="INSERT INTO question (TitreQ, DesQ,Category, Date_publication, QuestionStat ) 
-		VALUES (:TitreQ,:DesQ,:Category, :Date_publication , :QuestionStat )";
+		$sql="INSERT INTO question (TitreQ, DesQ,Category, Date_publication, QuestionStat,IdCfk) 
+		VALUES (:TitreQ,:DesQ,:Category, :Date_publication , :QuestionStat  ,:IdCfk)";
 		$db = config::getConnexion();
 		try{
 			$query = $db->prepare($sql);
@@ -19,7 +19,7 @@ public function ajouterquestion($Question)
 				'DesQ' => $Question->getDesQ(),
 				'Category' => $Question->getCateg(),
 				'Date_publication' => $Question->getDate_publication(),
-				'QuestionStat' => $Question->getQuestionStat()
+				'QuestionStat' => $Question->getQuestionStat(),'IdCfk' =>$Question->getIdCfk()
 			]);			
 		}
 		catch (Exception $e){
@@ -35,6 +35,22 @@ public function ajouterquestion($Question)
                  {
                      $query = $pdo ->prepare (
                          'select * FROM  question ORDER BY RefQ  DESC LIMIT 0,5' );
+                     $query ->execute();
+                     $result = $query ->fetchAll(); 
+                     return $result;
+                 }catch(PDOExeption $e){
+                     $e->getMessage();
+                 }
+             }
+         }
+		 public function afficherallquestion()
+         {
+             $pdo =config::getConnexion();
+             {
+                 try
+                 {
+                     $query = $pdo ->prepare (
+                         'select * FROM  question ORDER BY RefQ  ' );
                      $query ->execute();
                      $result = $query ->fetchAll(); 
                      return $result;
@@ -127,8 +143,25 @@ $pdo = config :: getConnexion();
     $e ->getMessage();
     }   
 }
+public function detailquestioncateg($idC)
+		{
+		
+		$pdo =config::getConnexion();
+		{
+			try
+			{
+				$query = $pdo ->prepare (
+					"select * FROM  question WHERE IdCfk='".$idC."' ORDER BY RefQ  " );
+				$query ->execute();
+				$result = $query ->fetchAll(); 
+				return $result;
+			}catch(PDOExeption $e){
+				$e->getMessage();
+			}
+		}
+		}
 function rechercherQuestion($Search){
-	$sql="select * from question where TitreQ like '".$Search."%' or Category like '".$Search."%' or DesQ like '".$Search."%' ";
+	$sql="select * from question where TitreQ like '%".$Search."%' or Category like '".$Search."%' or DesQ like '%".$Search."%' ";
 	$db = config::getConnexion();
 	try{
 		$liste=$db->query($sql);
@@ -138,6 +171,16 @@ function rechercherQuestion($Search){
 		return $e->getMessage();
 	}
 }       
-
+function rechercherQuestionMeilleur($Search){
+	$sql="select * from question where TitreQ like '".$Search."%' or Category like '".$Search."%' or DesQ like '".$Search."%' ORDER BY RefQ  DESC LIMIT 0,5";
+	$db = config::getConnexion();
+	try{
+		$liste=$db->query($sql);
+		return $liste;
+	}
+	catch (Exception $e){
+		return $e->getMessage();
+	}
+}       
 }
 ?>
