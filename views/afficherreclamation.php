@@ -87,7 +87,7 @@ include '../Controller/reclamationsc.php';?>
                 </div>
                 <script>
                    
-                     document.cookie = 'su='+"sujet 1";
+                     document.cookie = 'su='+"";
                      $(".form").load(" .form > *");
                      </script>
                 <?php $reclamationsc = new reclamationsc();
@@ -104,7 +104,7 @@ include '../Controller/reclamationsc.php';?>
                     <button id="sup" class="sup" type="button"> <i class="fa fa-trash-o"></i></button>
 						<input id="s" class="s" type="hidden" value=<?PHP echo $reclamations['num_reclamation']; ?> name="num_reclamation">
 					
-                    <div  class="msg-header"><p id="re"><?php echo $reclamations['description']?></p></div></div><div class="user-inbox inbox"><div class="date"><p><?php echo $reclamations['date_reclamation']?></p></div></div>
+                    <div  class="msg-header"><p class="re" id="re"><?php echo $reclamations['description']?></p></div></div><div class="user-inbox inbox"><div class="date"><p><?php echo $reclamations['date_reclamation']?></p></div></div>
                 <?php
             } }?>     
             </div>
@@ -177,13 +177,49 @@ include '../Controller/reclamationsc.php';?>
                             });
                         </script>
                         <script>
-                            $(".form").ready(function(){
-                              var allButtons = document.getElementsByClassName('sup');
-                              var txt = document.getElementsByClassName('s');
-                              for (var a = 0; a <= allButtons.length; a++){
+                            $(".form").on('DOMSubtreeModified', function(){
+                              let allButtons = document.getElementsByClassName('sup');
+                              let txt = document.getElementsByClassName('s');
+                              let tx = document.getElementsByClassName('h');
+                              let al = document.getElementsByClassName('mod');
+                             
+                              for (let a = 0; a < allButtons.length; a++){
+
+
+                                al[a].addEventListener("click", function () {
+
+
+                                     document.getElementById("sen").hidden = false;
+                                    document.getElementById("data").value=document.getElementsByClassName('re')[a].innerHTML;
+
+                                    let  $s = tx[a].value;
+                                document.getElementById("sen").addEventListener("click", function () {
+                                    
+
+                                    let $des = $("#data").val();
+
+
+                                $.ajax({
+                                        url: '../controller/modifierreclamation.php',
+                                        type: 'POST',
+                                    data :{description: $des,num_reclamation: $s},
+  
+                                        success: function($description){	
+                                            document.getElementById("sen").hidden = true;
+                                            $("#data").val('');
+                                            $(".form").load(" .form > *");
+
+                                            $s=null;
+                                        }});
                                 
-                                allButtons[0].addEventListener("click", function () {
-                                    var $n = txt[0].value;
+                              });
+
+
+
+                                     });
+
+                                     allButtons[a].addEventListener("click", function () {
+                                    let $n = txt[a].value;
                             
                              $.ajax({
                              url: '../controller/supprimerreclamation.php',
@@ -193,89 +229,14 @@ include '../Controller/reclamationsc.php';?>
           
                                       $(".form").load(" .form > *");
 
-                              }});});}});
-                               /* $(".sup").on("click", function(){
-                                    var $n = $(".s").val();
-                                    
-                                    
-                                   
-                                    // start ajax code
-                                    $.ajax({
-                                        url: '../controller/supprimerreclamation.php',
-                                        type: 'POST',
-                                    data :{num_reclamation: $n},
-                                        data:'description='+$description+'&sujet='+$sujet+'&date_reclamtion='+$date_reclamtion+'&num_reclamation='+$num_reclamation+'&etat='+$etat+'&id_client='+$id_client,
-                                        
-                                        success: function($description){	
-                                          
-                                            $(".form").load(" .form > *");
-                                        }
-                                    });
-
-
-                                   
-                                });
-                            */
-                        </script>
-                        <script>
-                          /* $(document).ready(function(){
-                            var allButtons = document.getElementsByClassName('sen');
-                              var txt = document.getElementsByClassName('h');
-                              for (var a = 0; a <= allButtons.length; a++){
-                                allButtons[0].addEventListener("click", function () {
-                                var $n = txt[0].value;
-                                var $des = $("#data").val();
-                                alert($n);
-                                $.ajax({
-                                        url: '../controller/modifierreclamation.php',
-                                        type: 'POST',
-                                    data :{description: $des,num_reclamation: $n},
-  
-                                        success: function($description){	
-                                          
-                                            $(".form").load(" .form > *");
-
-                                        }});});}});*/
-
-
-
-                                $("#sen").on("click", function(){
-                                    var $des = $("#data").val();
-                                    var txt = document.getElementsByClassName('h');
-                                    var $n = txt[0].value;
-                                    
-                                    $("#data").val('');
-                                   
-                                    // start ajax code
-                                    $.ajax({
-                                        url: '../controller/modifierreclamation.php',
-                                        type: 'POST',
-                                    data :{description: $des,num_reclamation: $n},
-  
-                                        success: function($description){	
-                                          
-                                            $(".form").load(" .form > *");
-                                            document.getElementById("sen").hidden = true;
-                                        }
-                                    });
-
-
-                                   
-                                });
+                              }});} );
                             
+                            
+                            }});
                         </script>
+                       
 
-                                    <script>
-                                        $(".form").ready(function(){
-                                        var allButtons = document.getElementsByClassName('mod');
-                                            for (var a = 0; a <= allButtons.length; a++){
-                                allButtons[0].addEventListener("click", function () {
-                            document.getElementById("data").value=document.getElementById("re").innerHTML; 
-                document.getElementById("sen").hidden = false;});}});
-        /*    document.getElementById("mod").addEventListener("click", function() {
-                document.getElementById("data").value=document.getElementById("re").innerHTML; 
-                document.getElementById("sen").hidden = false;
-});*/</script> 
+                                   
 
   <script>document.getElementById("hide-btn")
         .addEventListener("click", function() {

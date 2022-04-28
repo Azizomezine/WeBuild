@@ -6,11 +6,11 @@
 
     $reclamationsc = new reclamationsc();
 
-
-            $reclamationsc->modifier_reclamations($_POST['description'], intval($_POST['num_reclamation']));
+if($_POST['num_reclamation']!=null){
+            $reclamationsc->modifier_reclamations($_POST['description'], $_POST['num_reclamation']);
        
 
-        
+        }
 
     
 
