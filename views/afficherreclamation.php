@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include("navbar.php");
-include '../Model/reclamations.php';
-include '../Controller/reclamationsc.php';?> 
+<?php 	include_once("navbar.php");
+	include_once '../Model/reclamations.php';
+	include_once '../Model/reponse.php';
+	include_once '../Controller/reclamationsc.php';
+	include_once '../Controller/reponsec.php';
+?> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,6 +95,8 @@ include '../Controller/reclamationsc.php';?>
                      </script>
                 <?php $reclamationsc = new reclamationsc();
 	        $listereclamations=$reclamationsc->afficher_reclamations();
+            $reponsec = new reponsesc();
+	        $listereponses=$reponsec->afficher_reponses();
             foreach($listereclamations as $reclamations){
             if ($reclamations['sujet']==$_COOKIE['su'])
             {
@@ -106,7 +111,22 @@ include '../Controller/reclamationsc.php';?>
 					
                     <div  class="msg-header"><p class="re" id="re"><?php echo $reclamations['description']?></p></div></div><div class="user-inbox inbox"><div class="date"><p><?php echo $reclamations['date_reclamation']?></p></div></div>
                 <?php
-            } }?>     
+           foreach($listereponses as $reponses){
+            if ($reponses['num_question']==$reclamations['num_reclamation'])
+            {
+           ?>
+           <div class="bot-inbox inbox">
+                    <div class="icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+            <div class="msg-header">
+                        <p><?php echo $reponses['descriptions']?></p>
+                    </div>
+                    </div>
+                    <div class="date"><p><?php echo $reponses['date_reponse']?></p></div>
+
+         <?php  
+           }}} }?>     
             </div>
             
 

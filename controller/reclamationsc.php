@@ -1,7 +1,8 @@
 
 <?php
-	include '../config.php';
+	include_once '../config.php';
 	include_once '../Model/reclamations.php';
+
 	class reclamationsc {
 		function afficher_reclamations(){
 			$sql="SELECT * FROM reclamations";
@@ -79,9 +80,11 @@
 
 
 
-/*		function recuperer_reclamations($num_reclamation){
-			$sql="SELECT * from reclamations where num=$num_reclamation";
-            $sql1="Update reclamations set state = 1  where num=$num_reclamation";
+
+	
+		function recuperer_reclamations($num_reclamation){
+			$sql="SELECT * from reclamations LEFT JOIN reponses 	on (num_reclamation=num_question) where (num_reclamation=$num_reclamation)";
+            $sql1="Update reclamations set etat = 1  where num_reclamation=$num_reclamation";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -104,7 +107,7 @@
 		
 
 
-*/
+
 
 
 	}
