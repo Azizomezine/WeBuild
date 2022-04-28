@@ -1,6 +1,6 @@
 <?php include("header.php");
 include("navbar1.php");
-include("sidebar.php");
+include '../controller/reclamationsc.php';
 
 
 $reclamationsc=new reclamationsc();//appel au controlleur
@@ -26,7 +26,7 @@ $listereclamations=$reclamationsc->afficher_reclamations();
         </style>
 
 <div class="m-n2">
-  <button id="btn" class="btn btn-primary m-2" onclick="location.href='archive.php'"link><span>Archive</span></button>
+  <button id="btn" class="btn btn-primary m-2" onclick="location.href='acceuillereclamation.php'"link><span>retour</span></button>
 </div>
 		<div>
 		<table border="1" align="center" id="rec" class="table table-responsive">
@@ -42,21 +42,21 @@ $listereclamations=$reclamationsc->afficher_reclamations();
 				foreach($listereclamations as $reclamations){
 			?>
 			<tr onclick="get()">
-				<td scope="row" onclick="location.href='consulteruserreclamation.php'"link><?php echo $reclamations['num']; ?></td>
-				<td onclick="location.href='consulteruserreclamation.php'"link><?php echo $reclamations['id']; ?></td>
-				<td onclick="location.href='consulteruserreclamation.php'"link><?php echo $reclamations['subject']; ?></td>
-				<td onclick="location.href='consulteruserreclamation.php'"link><?php echo $reclamations['date']; ?></td>
+				<td scope="row" onclick="location.href='#'"link><?php echo $reclamations['num']; ?></td>
+				<td onclick="location.href='#'"link><?php echo $reclamations['id']; ?></td>
+				<td onclick="location.href='#'"link><?php echo $reclamations['subject']; ?></td>
+				<td onclick="location.href='#'"link><?php echo $reclamations['date']; ?></td>
 				<?php
 				if($reclamations['state'] == 0){
 			?>
-			<td onclick="location.href='consulteruserreclamation.php'"link><button class="btn btn-square btn-primary m-2"><i class="fa fa-envelope"></i></button>        </td>
+			<td onclick="location.href='#'"link><button class="btn btn-square btn-primary m-2"><i class="fa fa-envelope"></i></button>        </td>
 			<?php
 				}
 			?>
 			<?php
 				if($reclamations['state'] == 1){
 			?>
-			<td onclick="location.href='consulteruserreclamation.php'"link> <button class="btn btn-square btn-primary m-2"><i class="fa fa-envelope-open"></i></button>       </td>
+			<td onclick="location.href='#'"link> <button class="btn btn-square btn-primary m-2"><i class="fa fa-envelope-open"></i></button>       </td>
 			
 			<?php
 				}
@@ -71,7 +71,7 @@ $listereclamations=$reclamationsc->afficher_reclamations();
 		t.rows[i].onclick = function()
 		{
 			currentnum = this.cells[0].innerHTML;
-			var src="consulteruserreclamation.php?num="+currentnum;
+			var src="#"+currentnum;
           window.location.href=src;
 
 		   	

@@ -78,13 +78,48 @@
 		}
 
 
+		function archiver_reclamations($num_reclamation){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					"UPDATE reclamations SET 
+							etat= 3 
+					WHERE num_reclamation= :num_reclamation"
+				);
+				$query->execute([
+					'num_reclamation' => $num_reclamation,
+				]);
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+
+
+		function desarchiver_reclamations($num_reclamation){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					"UPDATE reclamations SET 
+							etat= 1 
+					WHERE num_reclamation= :num_reclamation"
+				);
+				$query->execute([
+					'num_reclamation' => $num_reclamation,
+				]);
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+
+
+
 
 
 
 	
 		function recuperer_reclamations($num_reclamation){
 			$sql="SELECT * from reclamations LEFT JOIN reponses 	on (num_reclamation=num_question) where (num_reclamation=$num_reclamation)";
-            $sql1="Update reclamations set etat = 1  where num_reclamation=$num_reclamation";
+            $sql1="Update reclamations set etat = 1  where (num_reclamation=$num_reclamation )&& (etat!=3)";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
