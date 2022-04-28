@@ -1,44 +1,38 @@
 <?php 
 include_once '../Model/Question.php';
-include_once '../controller/CategorieC.php';
- include_once '../controller/QuestionC.php';
- include_once 'navbar.php';
+include_once '../Model/Reponse.php';
+include_once '../controller/QuestionC.php';
+include_once '../controller/ReponseC.php';
 
-    $error = "";
+  $ReponseC = new ReponseC();
+  $error = "";
+ 
+  
+  if (
+    isset($_POST["Contentreponse"])     && isset($_POST["RefQC"]) 
 
-    $Question = null;
 
-    $QuestionC = new QuestionC();
-    $CategorieC = new CategorieC();
-	$listeCategorie=$CategorieC->affichertousCategorie();
-    if( isset($_POST["Category"]) )
-    {
-   $Categorie=$CategorieC->recuperercateg($_POST["Category"]);
-   $Fk=$Categorie["idC"];
-}
+    )
+ {
     if (
-		isset($_POST["TitreQ"]) && 
-        isset($_POST["DesQ"]) && isset($_POST["Category"]) 
-    
-        )
-	 {
-        if (
-            !empty($_POST["TitreQ"]) && 
-            !empty($_POST["DesQ"])  && !empty($_POST["Category"]) 
-        ){
-            $Question = new LeQuestion(
-                $_POST['TitreQ'],
-                $_POST['DesQ'], 
-               $_POST["Category"],
-               date('d/m/Y'),"Unresolved",$Fk
-            );
-            $QuestionC->ajouterquestion($Question);
-            header('Location:afficherMesQuestion.php');
-        }
-        else
-            $error = "Missing information";
-    }
+        !empty($_POST["Contentreponse"])  && !empty($_POST["RefQC"]) 
    
+    ){
+        $Reponse = new le_reponse(
+            $_POST['Contentreponse'],
+           date('d/m/Y'), $_POST['RefQC']
+        );
+          
+          $ReponseC->modifierReponse($Reponse, $_GET['Idreponse']);
+        echo( $_POST['Contentreponse']);
+     //   echo( $_GET['Idreponse']);
+        echo($_POST['RefQC']);
+          $h=$_POST['RefQC'];
+     header("Location:QuestionDetails.php?RefQ=$h");
+      }
+      else
+          $error = "Missing information";
+  }
 ?>
 
 <!DOCTYPE html>
@@ -62,57 +56,84 @@ include_once '../controller/CategorieC.php';
     <link href="css/responsive.css" rel="stylesheet" type="text/css"> </head>
 
 <body>
-    
-   
+    <div class="top-bar">
+    </div>
+    <div class="top-menu-bottom932">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <a class="navbar-brand" href="#"><img src="image/logo.png" alt="Logo"></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav"> </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Home</a></li>
+                      
+                        <li><a href="index.html">CARPOOL</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Disscussion Forum <span class="caret"></span></a>
+                            <ul class="dropdown-menu animated zoomIn">
+                                <li><a href="contact_us.html"> Contact Us</a></li>
+                                <li><a href="#"> Ask Reponse </a></li>
+                                <li><a href="afficherMesReponse.php"> Post-Details </a></li>
+                                <li><a href="afficherMesReponse.php">All User</a></li>
+                                <li><a href="user_question.html"> User Reponse </a></li>
+                                <li><a href="category.html"> Category </a></li>
+                               
+                            </ul>
+                        </li>
+                        <li><a href="contact_us.html">Contact us</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
     <section class="header-descriptin329">
         <div class="container">
-            <h3>Ask Question</h3>
+            <h3>Modify Answer</h3>
             <ol class="breadcrumb breadcrumb839">
                 <li><a href="#">Home</a></li>
-                <li class="active">Ask Question</li>
+                <li class="active">Modify Answer</li>
             </ol>
         </div>
     </section>
     <section class="main-content920">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
                 <div class="ask-question-input-part032">
-                      <h4>Ask Question</h4>
+                <?php
+			if (isset($_GET['Idreponse'])){
+				$Reponse = $ReponseC->recupererReponse($_GET['Idreponse']);
+				
+        ?>
+                      <h4>Modify Answer</h4>
                  <hr>
+           
                     <form action="" method="POST">
-                        <div class="question-title39">
-                            <span class="form-description433">Question-Title </span><input type="text" id="TitreQ"  name="TitreQ" class="question-ttile32" placeholder="Write Your Question Title" >
-                        </div>
-
-                            <!-- <span class="form-description433">Question-Des </span><textarea type="text"  id="Article_editor" name="DesQ"  ></textarea> -->
-                        
-                       
-    <div class="categori49">
-        <span class="form-description43305">Category* </span>
-        <label>
-<input list="browsers"  id="Category"name="Category" class="list-category53"/></label>
-<datalist id="browsers" >
-<?PHP
-				foreach($listeCategorie as $Categorie){
-			?>
-  <option value="<?php echo $Categorie['ncateg'];?>">
+                      
+                     
  
-     <?php } ?>
-</datalist>
-    </div>
-  
          <div class="details2-239">
         <div class="col-md-12 nopadding">
-       <textarea type="text"  id="Article_editor" name="DesQ"  ></textarea>
+       <textarea type="text"  id="Article_editor" name="Contentreponse"><?php echo $Reponse['Contentreponse']; ?></textarea>
         </div>
                         </div>	
                      
 
                  <div class="publish-button2389">
-                    <button type="submit" class="publis1291" name='ajouter' onclick="return valider()" >Publish your Question</button>
+                    <button type="submit" class="publis1291" name='modifer' value="modifiy">Modify your Answer</button>
+                      <input type="hidden" name="RefQC" id="RefQC"value="<?php echo $_GET['RefQ'];?>">
                 </div>
                 </form>
+                <?php
+		}
+		?>
                 </div>
              
               
@@ -124,18 +145,17 @@ include_once '../controller/CategorieC.php';
              <div class="status-part3821">
             <h4>stats</h4>
                 
-                 <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Question(20)</i></a>
+                 <a href="#"><i class="fa fa-question-circle" aria-hidden="true"> Reponse(20)</i></a>
                  <i class="fa fa-comment" aria-hidden="true"> Answers(50)</i>
              </div>  
              <div class="categori-part329">
                  <h4>Category</h4>
                  <ul>
-                 <?PHP
-				foreach($listeCategorie as $Categorie){
-			?>
-                     <li><a href="#"><?php echo $Categorie['ncateg'];?></a></li>
-                    
-                     <?php }?>
+                     <li><a href="#">Web Help</a></li>
+                     <li><a href="#">Security</a></li>
+                     <li><a href="#">Harassment</a></li>
+                     <li><a href="#">News</a></li>
+                     
                  </ul>
              </div>
              
@@ -210,7 +230,72 @@ include_once '../controller/CategorieC.php';
 								<a href="#" class="resbutton3892">Register</a>
 							</div>
               </div>
-
+<!--              highest part-->
+              <div class="highest-part302">
+                <h4>Highest Points</h4>  
+                <div class="pints-wrapper">
+                 <div class="left-user3898">
+                     <a href="#"><img src="image/images.png" alt="Image"></a>
+                     <div class="imag-overlay39">
+                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </div>
+                 </div>
+                 <span class="points-details938">
+                     <a href="#"><h5>Mohamed Aziz</h5></a>
+                <a href="#" class="designetion439">Pundit</a>
+                     <p>206 points</p>
+                 </span>
+                 
+                  </div>
+                  <hr>
+                           <div class="pints-wrapper">
+                 <div class="left-user3898">
+                     <a href="#"><img src="image/images.png" alt="Image"></a>
+                     <div class="imag-overlay39">
+                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </div>
+                 </div>
+                 <span class="points-details938">
+                     <a href="#"><h5>Omezine Aya</h5></a>
+                <a href="#" class="designetion439">Pundit</a>
+                     <p>206 points</p>
+                 </span>
+                 
+                  </div>
+                  <hr>
+                           <div class="pints-wrapper">
+                 <div class="left-user3898">
+                     <a href="#"><img src="image/images.png" alt="Image"></a>
+                     <div class="imag-overlay39">
+                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </div>
+                 </div>
+                 <span class="points-details938">
+                     <a href="#"><h5>Aziz Omezine</h5></a>
+                <a href="#" class="designetion439">Pundit</a>
+                     <p>206 points</p>
+                 </span>
+                 
+                  </div>
+                  <hr>
+                  <div class="pints-wrapper">
+                 <div class="left-user3898">
+                     <a href="#"><img src="image/images.png" alt="Image"></a>
+                     <div class="imag-overlay39">
+                         <a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </div>
+                 </div>
+                 <span class="points-details938">
+                     <a href="#"><h5>Aymen zwari</h5></a>
+                <a href="#" class="designetion439">Pundit</a>
+                     <p>206 points</p>
+                 </span>
+                 
+                  </div>
+                  <hr>
+             
+              </div>
+<!--               end of Highest points -->
 <!--          start tags part-->
 <div class="tags-part2398">
     <h4>Tags</h4>
@@ -295,8 +380,8 @@ include_once '../controller/CategorieC.php';
                   <div class="info-part-two320">
               <h4>Quick Links</h4>
                    <a href="#"><p>-Home</p></a>
-                     <a href="#"><p>-Ask Question</p></a>
-                     <a href="#"><p>-Questions</p></a>
+                     <a href="#"><p>-Ask Reponse</p></a>
+                     <a href="#"><p>-Reponses</p></a>
                      <a href="#"><p>-Users</p></a>
                      <a href="#"><p>-Edit Profile</p></a>
                      <a href="#"><p>-Page</p></a>
@@ -306,7 +391,7 @@ include_once '../controller/CategorieC.php';
                 </div>
                    <div class="col-md-3">
                   <div class="info-part-three320">
-                   <h4>Popular Questions</h4>
+                   <h4>Popular Reponses</h4>
                   <div class="news-info209">
                   
                    <h5>Why are the British confused</h5>
@@ -370,34 +455,10 @@ include_once '../controller/CategorieC.php';
         </div>
     </div>
 </section>
-<script>
-    	function valider() {
-		var letters = /^[A-Za-z" "]+$/;
-		var dateNow = new Date();
-		var t= document.getElementById("TitreQ").value;
-		var c = document.getElementById("Category").value;
-		//var d = document.getElementsByName("DesQ").value;
-		
-
-		if (t == "") {
-			alert("le TitreQ est vide ");
-			return false;
-		}
-		else if (!(t.match(letters) )) {
-	alert("Veuillez entrer un Titre valide!");
-	return false ;
-	}
-	else if (c == "") {
-			alert("category est vide !!");
-			return false;
-		}
-		else if (!(c.match(letters) )) {
-	alert("Veuillez entrer un Category valide! !");
-	return false ;
-	} 
-}
-</script>
-<script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+      <script src="js/editor.js"></script>
       <script src="ckeditor/ckeditor.js"></script>
       <script >
        CKEDITOR.replace('Article_editor');

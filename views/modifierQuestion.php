@@ -83,18 +83,17 @@ include_once 'navbar.php';
                         </div>
 
                             <!-- <span class="form-description433">Question-Des </span><textarea type="text"  id="Article_editor" name="DesQ"  ></textarea> -->
-                            <div class="question-title39">
-                 
-                     
-                            <span class="form-description433">Question Status </span>
-              
-              
-             <select name="QuestionStat" id="QuestionStat" class="question-ttile32" value = "<?php echo $Question['QuestionStat']; ?>">
-             <option value="Unresolved">Unresolved</option>
+                
+                                    
+    <div class="categori49">
+        <span class="form-description43305">QuestionStat* </span>
+        <label>
+<input list="browsers"  name="QuestionStat" id="QuestionStat" class="list-category53" value="<?php echo $Question['QuestionStat']; ?>"/></label>
+<datalist id="browsers" >
+<option value="Unresolved" >Unresolved</option>
                          <option value="Resolved">Resolved</option>
-                         
-             </select>
-             </div>   
+</datalist>
+    </div>
                        
     <div class="categori49">
         <span class="form-description43305">Category* </span>
