@@ -1,8 +1,13 @@
 <?php 
 include_once '../Model/Question.php';
+//include_once '../Model/utilisateur.php';
 include_once '../controller/CategorieC.php';
  include_once '../controller/QuestionC.php';
+ include_once '../controller/utilisateurC.php';
  include_once 'navbar.php';
+//require_once '../../WeBuild-utilisateurs/view/connexion.php';
+//include_once 'sidebar.php';
+session_start();
 
     $error = "";
 
@@ -10,15 +15,22 @@ include_once '../controller/CategorieC.php';
 
     $QuestionC = new QuestionC();
     $CategorieC = new CategorieC();
+    $usersC= new usersC();
 	$listeCategorie=$CategorieC->affichertousCategorie();
     if( isset($_POST["Category"]) )
     {
    $Categorie=$CategorieC->recuperercateg($_POST["Category"]);
    $Fk=$Categorie["idC"];
+
+}
+if( isset($_POST["userfk"]) )
+{
+$user=$usersC->recupererusername($_POST["userfk"]);
+$fk1=$user["id"];
 }
     if (
 		isset($_POST["TitreQ"]) && 
-        isset($_POST["DesQ"]) && isset($_POST["Category"]) 
+        isset($_POST["DesQ"]) && isset($_POST["Category"])  
     
         )
 	 {
@@ -30,11 +42,12 @@ include_once '../controller/CategorieC.php';
                 $_POST['TitreQ'],
                 $_POST['DesQ'], 
                $_POST["Category"],
-               date('d/m/Y'),"Unresolved",$Fk
+               date('d/m/Y'),"Unresolved",$Fk,$fk1
             );
             $QuestionC->ajouterquestion($Question);
             header('Location:afficherMesQuestion.php');
         }
+      
         else
             $error = "Missing information";
     }
@@ -57,10 +70,16 @@ include_once '../controller/CategorieC.php';
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/editor.css" rel="stylesheet" type="text/css">
+    <script src="./node_modules/bootstrap-show-notification/src/bootstrap-show-notification.js"></script>
+    
     <!-- <link href="css/animate.css" rel="stylesheet" type="text/css"> -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"> </head>
     <link href="css/responsive.css" rel="stylesheet" type="text/css"> </head>
-
+    <style>
+        .error5 {
+            color: red;
+        }
+    </style>
 <body>
     
    
@@ -74,24 +93,31 @@ include_once '../controller/CategorieC.php';
         </div>
     </section>
     <section class="main-content920">
+        
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
                 <div class="ask-question-input-part032">
                       <h4>Ask Question</h4>
                  <hr>
+                 <div class="error5">
+        <?php echo $error; ?>
+    </div>
                     <form action="" method="POST">
                         <div class="question-title39">
                             <span class="form-description433">Question-Title </span><input type="text" id="TitreQ"  name="TitreQ" class="question-ttile32" placeholder="Write Your Question Title" >
                         </div>
+                        <p id="errort" class="error5"></p>
 
                             <!-- <span class="form-description433">Question-Des </span><textarea type="text"  id="Article_editor" name="DesQ"  ></textarea> -->
-                        
-                       
+   <input type="hidden" id="userfk"  name="userfk" value="<?php echo $_SESSION['username'];?>"  >    
+                            
+                            
     <div class="categori49">
         <span class="form-description43305">Category* </span>
         <label>
 <input list="browsers"  id="Category"name="Category" class="list-category53"/></label>
+<p id="errorc" class="error5"></p>
 <datalist id="browsers" >
 <?PHP
 				foreach($listeCategorie as $Categorie){
@@ -105,16 +131,19 @@ include_once '../controller/CategorieC.php';
          <div class="details2-239">
         <div class="col-md-12 nopadding">
        <textarea type="text"  id="Article_editor" name="DesQ"  ></textarea>
+       <p id="errord" class="error5"></p>
         </div>
                         </div>	
                      
 
                  <div class="publish-button2389">
-                    <button type="submit" class="publis1291" name='ajouter' onclick="return valider()" >Publish your Question</button>
+                    <button type="submit" class="publis1291" name='ajouter' onclick="return validerform()" >Publish your Question</button>
                 </div>
                 </form>
                 </div>
-             
+                <form method="POST" action="logout.php"><button type="submit" class="q-type23 button-ques2973" ><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                <div id="liveAlertPlaceholder"></div>
+<button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>
               
                 </div>
 <!--                end of col-md-9 -->
@@ -193,39 +222,16 @@ include_once '../controller/CategorieC.php';
                   
               </div>
               
-<!--              login part-->
+<!--              logout part-->
               <div class="login-part2389">
-                  <h4>Login</h4>
-                  <div class="input-group300">
-                  <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                  <input type="text" class="namein309" placeholder="Username">
-                  </div>
-                      <div class="input-group300">
-                  <span><i class="fa fa-lock" aria-hidden="true"></i></span>
-                  <input type="password" class="passin309" placeholder="Name">
-                  </div>
-                  <a href="#"><button type="button" class="userlogin320">Log In</button></a>
-                  <div class="rememberme">
-								<label><input type="checkbox" checked="checked"> Remember Me</label>
-								<a href="#" class="resbutton3892">Register</a>
-							</div>
+                  <h4>Logout</h4>
+                  
+             
+               <form method="POST" action="logout.php"> <button type="submit" class="userlogin320" >Logout</button></button>
+
               </div>
 
-<!--          start tags part-->
-<div class="tags-part2398">
-    <h4>Tags</h4>
-    <ul>
-        <li><a href="#">CARS</a></li>
-        <li><a href="#">BUS</a></li>
-        <li><a href="#">AIRPLANE</a></li>
-        <li><a href="#">TIME</a></li>
-      
-        
-    </ul>
-    
-    
-</div>
-<!--          End tags part-->
+
 <!--        start recent post  -->
 <div class="recent-post3290">
     <h4>Recent Post</h4>
@@ -370,8 +376,58 @@ include_once '../controller/CategorieC.php';
         </div>
     </div>
 </section>
+<script>function validerform() {
+   
+  
+   var t= document.getElementById("TitreQ").value;
+   var c = document.getElementById("Category").value;
+   var d = document.getElementsByName("DesQ").value;
+   var errort = document.getElementById('errort');
+   var errorc = document.getElementById('errorc');
+   var errord = document.getElementById('errord');
+
+   if (t == "") {
+       errort.innerHTML = "Please type a title";
+       return false;
+   }
+   else {
+   if(c==""){
+      errorc.innerHTML="Veuillez Entrer Category"
+      return false;
+  }
+else {
+ if (d="")
+ {
+   errord.innerHTML="Veuillez Entrer Description"
+return false;
+ }
+
+}} }
+var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+var alertTrigger = document.getElementById('liveAlertBtn')
+
+function alert(message, type) {
+  var wrapper = document.createElement('div')
+  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+  alertPlaceholder.append(wrapper)
+}
+
+if (alertTrigger) {
+  alertTrigger.addEventListener('click', function () {
+    alert('Can you please complete evreything ', 'success')
+  })
+}
+
+/*const Filter=require("bad-words");
+const filter=new Filter();
+filter.addwords("aziz","iheb");
+filter.clean("");*/
+
+          
+</script>
 <script>
-    	function valider() {
+    /*	function valider() {
 		var letters = /^[A-Za-z" "]+$/;
 		var dateNow = new Date();
 		var t= document.getElementById("TitreQ").value;
@@ -395,9 +451,9 @@ include_once '../controller/CategorieC.php';
 	alert("Veuillez entrer un Category valide! !");
 	return false ;
 	} 
-}
+}*/
 </script>
-<script src="main.js"></script>
+
       <script src="ckeditor/ckeditor.js"></script>
       <script >
        CKEDITOR.replace('Article_editor');

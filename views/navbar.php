@@ -40,7 +40,7 @@
                                 <li><a href="afficherMesQuestion.php">All User</a></li>
                                 <li><a href="afficherMesQuestion.php"> User Question </a></li>
                                 <li><a href="AjouterCategorie.php"> Add category </a></li>
-                                <li><a href="#"> Category </a></li>
+                               
                                
                             </ul>
                         </li>

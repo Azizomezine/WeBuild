@@ -1,12 +1,26 @@
 <?php 
 include_once '../Model/Question.php';
 include_once '../Model/Reponse.php';
-include_once '../controller/QuestionC.php';
+//include_once '../controller/QuestionC.php';
 include_once '../controller/ReponseC.php';
+include_once '../controller/utilisateurC.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
+require 'src/Exception.php';
+require 'src/PHPMailer.php';
+require 'src/SMTP.php';
+session_start();
   $ReponseC = new ReponseC();
+  $usersC= new usersC();
+  
   $error = "";
- 
+  if( isset($_POST["userfk"]) )
+  {
+  $user=$usersC->recupererusername($_POST["userfk"]);
+  $fk1=$user["id"];
+  }
   
   if (
     isset($_POST["Contentreponse"])     && isset($_POST["RefQC"]) 
@@ -18,9 +32,35 @@ include_once '../controller/ReponseC.php';
         !empty($_POST["Contentreponse"])  && !empty($_POST["RefQC"]) 
    
     ){
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings                    // Enable verbose debug output
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host  = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'projetweb770@gmail.com';                     // SMTP username
+            $mail->Password   = '123456web';                               // SMTP password
+            $mail->SMTPSecure = 'tls';                                     // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 25;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        
+            //Recipients Email sender
+            $mail->setFrom('projetweb770@gmail.com', $_SESSION['username']);
+            $mail->addAddress('projetweb770@gmail.com');     // Add a recipient
+        
+            // Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Replay was modified';
+            $mail->Body    = $_POST['Contentreponse'];
+        
+            $mail->send();
+   
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+         }
         $Reponse = new le_reponse(
             $_POST['Contentreponse'],
-           date('d/m/Y'), $_POST['RefQC']
+           date('d/m/Y'), $_POST['RefQC'],$fk1
         );
           
           $ReponseC->modifierReponse($Reponse, $_GET['Idreponse']);
@@ -128,7 +168,9 @@ include_once '../controller/ReponseC.php';
 
                  <div class="publish-button2389">
                     <button type="submit" class="publis1291" name='modifer' value="modifiy">Modify your Answer</button>
+                    <input type="hidden" id="userfk"  name="userfk" value="<?php echo $_SESSION['username'];?>"  >    
                       <input type="hidden" name="RefQC" id="RefQC"value="<?php echo $_GET['RefQ'];?>">
+       
                 </div>
                 </form>
                 <?php

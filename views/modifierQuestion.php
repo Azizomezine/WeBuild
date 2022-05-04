@@ -1,11 +1,18 @@
 <?php 
-include "../controller/QuestionC.php";
-include_once '../model/Question.php';
-include_once 'navbar.php';
 
+include_once '../model/Question.php';
+include_once '../controller/utilisateurC.php';
+include_once '../controller/QuestionC.php';
+include_once 'navbar.php';
+session_start();
+$usersC= new usersC();
   $QuestionC = new QuestionC();
   $error = "";
-  
+  if( isset($_POST["userfk"]) )
+{
+$user=$usersC->recupererusername($_POST["userfk"]);
+$fk1=$user["id"];
+}
   if (
     isset($_POST["TitreQ"]) && 
     isset($_POST["DesQ"]) && isset($_POST["Category"]) && isset($_POST["QuestionStat"]) 
@@ -20,7 +27,7 @@ include_once 'navbar.php';
             $_POST['TitreQ'],
             $_POST['DesQ'], 
            $_POST["Category"],
-           date('d/m/Y'),$_POST["QuestionStat"]
+           date('d/m/Y'),$_POST["QuestionStat"],$_POST["IdCfk"],$fk1
           );
           
           $QuestionC->modifierQuestion($Question, $_GET['RefQ']);
@@ -117,6 +124,8 @@ include_once 'navbar.php';
 
                  <div class="publish-button2389">
                     <button type="submit" class="publis1291" name='modifer' value="modifiy">Modify your Question</button>
+                    <input type="hidden" name="IdCfk" id="IdCfk"value="<?php echo $Question['IdCfk'];?>">
+                    <input type="hidden" id="userfk"  name="userfk" value="<?php echo $_SESSION['username'];?>"  >    
                 </div>
                 </form>
                 <?php
@@ -443,10 +452,7 @@ include_once 'navbar.php';
         </div>
     </div>
 </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-      <script src="js/editor.js"></script>
+ 
       <script src="ckeditor/ckeditor.js"></script>
       <script >
        CKEDITOR.replace('Article_editor');

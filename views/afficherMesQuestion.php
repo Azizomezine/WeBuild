@@ -1,10 +1,12 @@
 
 <?PHP
 include_once '../Model/Question.php';
-include_once '../controller/QuestionC.php';
+//include_once '../controller/QuestionC.php';
 include_once '../controller/ReponseC.php';
 include_once '../controller/CategorieC.php';
+include_once '../controller/utilisateurC.php';
 include_once 'navbar.php';
+session_start();
 	$QuestionC=new QuestionC();
     $ReponseC = new ReponseC();
     $CategorieC = new CategorieC();
@@ -13,6 +15,8 @@ include_once 'navbar.php';
     $touslistequestion=$QuestionC->afficherallquestion();
     $somme=$QuestionC->calculerQuestion();
     $sum=$ReponseC->calculerReponse();
+    $usersC= new usersC();
+
   //  $summ1=$ReponseC->calculerReponseQuestion($RefQC);
     if (
 		isset($_POST["Search"]) 
@@ -21,12 +25,23 @@ include_once 'navbar.php';
 	 {
         if (
             !empty($_POST["Search"])  
-         
         )
         {
    $touslistequestion=$QuestionC->rechercherQuestion($_POST["Search"]);
    $listeQuestion=$QuestionC->rechercherQuestionMeilleur($_POST["Search"]);
         }}
+
+ /*  if( !empty($_SESSION['username']) )
+   {
+echo($_SESSION['username']);
+$user=$usersC->recupererusername($_SESSION['username']);
+$id=$user["id"];
+$image=$user["image"];
+echo($image);
+$username=$user["username"];
+   }*/
+   
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +65,22 @@ include_once 'navbar.php';
 
 <body>
   
-    
+<?php
+                                            $bdd= new PDO('mysql:host=localhost;dbname=forum;charset=utf8','root','');
+                                            $userParPage =5;
+                                            $userTotalReq=$bdd->query('SELECT RefQ FROM question');
+                                            $userTotal=$userTotalReq->rowCount();
+                                            $pagesTotales=ceil($userTotal/$userParPage);
+                                            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page']<= $pagesTotales){
+                                            $_GET['page']=intval($_GET['page']);
+                                            $pageCourante=$_GET['page'];
+                                            }else{
+                                                $pageCourante=1;
+                                            }
+                                            
+                                            $depart=($pageCourante-1)*$userParPage;
+                                            
+                                            ?>
     <!--======= welcome section on top background=====-->
     <section class="welcome-part-one">
         <div class="container">
@@ -92,14 +122,19 @@ include_once 'navbar.php';
                         <label for="tab5">Category</label>
                         <section id="content1">
                                <!--Recent Question Content Section -->
-                               <?PHP
+              
+
+                               <?PHP  
 				foreach($listeQuestion as $Question){
+
 			?>
                           <div class="question-type2033">
                                 <div class="row">
                                     <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                        <?PHP $user=$usersC->recupererusers($Question['userfk']);
+                                        ?>
+                                            <a href="#"><img src="<?php echo $user['image'] ?>" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
@@ -113,10 +148,13 @@ include_once 'navbar.php';
 </form>
 </div>
                                             <div class="ques-details10018">
-                                                <p><?PHP echo $Question['DesQ']; ?></p>
+                                             <?PHP  $good=$QuestionC->BadWordFilter($Question['DesQ']); 
+                                             echo($good);
+                                           // 
+                                                  ?>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-folder" aria-hidden="true"> Details</i></a> <a href="#"><i class="fa fa-clock-o" aria-hidden="true"><?PHP echo $Question['Date_publication']; ?></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> <?PHP echo $Question['RefQ']; ?></i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a>
+                                            <div class="ques-icon-info3293">Username:<?php echo $user['username'] ?><a href="#"><i class="fa fa-clock-o" aria-hidden="true"><?PHP echo $Question['Date_publication']; ?></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> <?PHP echo $Question['RefQ']; ?></i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a>
                                             <form method="POST" action="supprimerQuestion.php"><button type="submit" class="q-type23 button-ques2973" ><i class="fa fa-trash" aria-hidden="true"></i></button><input type="hidden" value=<?PHP echo $Question['RefQ']; ?> name="RefQ"></form></div>
                                             <a href="modifierQuestion.php?RefQ=<?PHP echo $Question['RefQ']; ?>" ><i class="fa fa-edit" style="font-size: 26px;"></i></a>
                                         </div>
@@ -141,11 +179,17 @@ include_once 'navbar.php';
                                       <span aria-hidden="true">&laquo;</span>
                                     </a>
                                   </li>
-                                  <li><a href="#">1</a></li>
-                                  <li><a href="#">2</a></li>
-                                  <li><a href="#">3</a></li>
-                                  <li><a href="#">4</a></li>
-                                  <li><a href="#">5</a></li>
+                                  <li><a href="#">  <?php 
+        for($i=1;$i<=$pagesTotales;$i++){
+            if($i == $pageCourante){
+            echo $i.' ';
+            }else{
+            echo '<a href="afficherMesQuestion.php?page='.$i.'">'.$i.'</a> ';
+        }
+    }
+
+        ?></a></li>
+                                
                                   <li>
                                     <a href="#" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
@@ -158,14 +202,16 @@ include_once 'navbar.php';
                         
                         <section id="content2">
                            <!--All question Content Section -->
-                           <?PHP
+                           <?PHP $touslistequestionlisteQuestion=$bdd->query('SELECT * FROM question ORDER BY RefQ DESC LIMIT '.$depart.','.$userParPage);
 				foreach($touslistequestion as $Question){
 			?>
                              <div class="question-type2033">
                                 <div class="row">
-                                    <div class="col-md-1">
+                                <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                        <?PHP $user=$usersC->recupererusers($Question['userfk']);
+                                        ?>
+                                            <a href="#"><img src="<?php echo $user['image'] ?>" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
@@ -182,7 +228,7 @@ include_once 'navbar.php';
                                                 <p><?PHP echo $Question['DesQ']; ?></p>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-folder" aria-hidden="true"> Details</i></a> <a href="#"><i class="fa fa-clock-o" aria-hidden="true"><?PHP echo $Question['Date_publication']; ?></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> <?PHP echo $Question['RefQ']; ?></i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a>
+                                            <div class="ques-icon-info3293">Username:<?php echo $user['username'] ?>  <a href="#"><i class="fa fa-clock-o" aria-hidden="true"><?PHP echo $Question['Date_publication']; ?></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> <?PHP echo $Question['RefQ']; ?></i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a>
                                             <form method="POST" action="supprimerQuestion.php"><button type="submit" class="q-type23 button-ques2973" ><i class="fa fa-trash" aria-hidden="true"></i></button><input type="hidden" value=<?PHP echo $Question['RefQ']; ?> name="RefQ"></form></div>
                                             <a href="modifierQuestion.php?RefQ=<?PHP echo $Question['RefQ']; ?>" ><i class="fa fa-edit" style="font-size: 26px;"></i></a>
                                         </div>
@@ -208,11 +254,17 @@ include_once 'navbar.php';
                                       <span aria-hidden="true">&laquo;</span>
                                     </a>
                                   </li>
-                                  <li><a href="#">1</a></li>
-                                  <li><a href="#">2</a></li>
-                                  <li><a href="#">3</a></li>
-                                  <li><a href="#">4</a></li>
-                                  <li><a href="#">5</a></li>
+                                  <li> <?php 
+        for($i=1;$i<=$pagesTotales;$i++){
+            if($i == $pageCourante){
+            echo $i.' ';
+            }else{
+            echo '<a href="afficherMesQuestion.php?page='.$i.'">'.$i.'</a> ';
+        }
+    }
+
+        ?></li>
+                               
                                   <li>
                                     <a href="#" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
@@ -294,98 +346,21 @@ include_once 'navbar.php';
                         <?PHP
 				foreach($listecategorie as $Categorie){
 			?>
-                            <li><a href="#"><?php echo $Categorie['ncateg'];?></a></li>
+              
+                            <li><a href="categorydetails.php?idC=<?PHP echo $Categorie['idC']; ?>"><?php echo $Categorie['ncateg'];?></a></li>
                            <?php }?>
                         </ul>
                     </div>
-                    <!--             social part -->
-                    <div class="social-part2189">
-                        <h4>Find us</h4>
-                        <li class="rss-one">
-                            <a href="#" target="_blank"> <strong>
-<span>Subscribe</span>
-<i class="fa fa-rss" aria-hidden="true"></i>
+                   <!--              logout part-->
+              <div class="login-part2389">
+                  <h4>Logout</h4>
+                  
+             
+               <form method="POST" action="logout.php"> <button type="submit" class="userlogin320" >Logout</button></button>
 
-<br>
-<small>To RSS Feed</small>
+              </div>
 
-</strong> </a>
-                        </li>
-                        <li class="facebook-two">
-                            <a href="#" target="_blank"> <strong>
-<span>Subscribe</span>
-<i class="fa fa-facebook" aria-hidden="true"></i>
 
-<br>
-<small>To Facebook Feed</small>
-
-</strong> </a>
-                        </li>
-                        <li class="twitter-three">
-                            <a href="#" target="_blank"> <strong>
-<span>Subscribe</span>
-<i class="fa fa-twitter" aria-hidden="true"></i>
-
-<br>
-<small>To twitter Feed</small>
-
-</strong> </a>
-                        </li>
-                        <li class="youtube-four">
-                            <a href="#" target="_blank"> <strong>
-<span>Subscribe</span>
-<i class="fa fa-youtube" aria-hidden="true"></i>
-
-<br>
-<small>To youtube Feed</small>
-
-</strong> </a>
-                        </li>
-                    </div>
-                    <!--              login part-->
-                    <div class="login-part2389">
-                        <h4>Login</h4>
-                        <div class="input-group300"> <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" class="namein309" placeholder="Username"> </div>
-                        <div class="input-group300"> <span><i class="fa fa-lock" aria-hidden="true"></i></span>
-                            <input type="password" class="passin309" placeholder="Name"> </div>
-                        <a href="#">
-                            <button type="button" class="userlogin320">Log In</button>
-                        </a>
-                        <div class="rememberme">
-                            <label>
-                                <input type="checkbox" checked="checked"> Remember Me</label> <a href="#" class="resbutton3892">Register</a> </div>
-                    </div>
-                
-                    <!--          start tags part-->
-                    <div class="tags-part2398">
-                        <h4>Tags</h4>
-                        <ul>
-                            <li><a href="#">analytics</a></li>
-                            <li><a href="#">Computer</a></li>
-                            <li><a href="#">Developer</a></li>
-                            <li><a href="#">Google</a></li>
-                            <li><a href="#">Interview</a></li>
-                            <li><a href="#">Programmer</a></li>
-                            <li><a href="#">Salary</a></li>
-                            <li><a href="#">University</a></li>
-                            <li><a href="#">Employee</a></li>
-                        </ul>
-                    </div>
-                    <!--          End tags part-->
-                    <!--        start recent post  -->
-                    <div class="recent-post3290">
-                        <h4>Recent Post</h4>
-                        <div class="post-details021"> <a href="#"><h5>How much do web developers</h5></a>
-                            <p>I am thinking of pursuing web developing as a career & was ...</p> <small style="color: #848991">July 16, 2017</small> </div>
-                        <hr>
-                        <div class="post-details021"> <a href="#"><h5>How much do web developers</h5></a>
-                            <p>I am thinking of pursuing web developing as a career & was ...</p> <small style="color: #848991">July 16, 2017</small> </div>
-                        <hr>
-                        <div class="post-details021"> <a href="#"><h5>How much do web developers</h5></a>
-                            <p>I am thinking of pursuing web developing as a career & was ...</p> <small style="color: #848991">July 16, 2017</small> </div>
-                    </div>
-                    <!--       end recent post    -->
                 </aside>
             </div>
         </div>

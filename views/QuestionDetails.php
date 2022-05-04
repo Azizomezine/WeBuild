@@ -1,18 +1,31 @@
 <?PHP
 include_once '../Model/Question.php';
 include_once '../Model/Reponse.php';
-include_once '../controller/QuestionC.php';
+//include_once '../controller/QuestionC.php';
 include_once '../controller/ReponseC.php';
 include_once 'navbar.php';
+include_once '../controller/utilisateurC.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'src/Exception.php';
+require 'src/PHPMailer.php';
+require 'src/SMTP.php';
+session_start();
 	$QuestionC=new QuestionC();
-	$Question=$QuestionC->detailquestion($_GET["RefQ"]);
-   
+    $usersC= new usersC();
+
+	$Question=$QuestionC->detailquestion($_GET["RefQ"]);   
     $error = "";
-
     $Reponse = null;
-
     $ReponseC = new ReponseC();
     $listeReponse=$ReponseC->afficherreponse($_GET["RefQ"]);
+    if( isset($_POST["userfk"]) )
+{
+$user=$usersC->recupererusername($_POST["userfk"]);
+$fk1=$user["id"];
+}
     if (
 		isset($_POST["Contentreponse"]) 
     && isset($_POST["RefQC"]) 
@@ -25,16 +38,43 @@ include_once 'navbar.php';
         ){
             $Reponse = new le_reponse(
                 $_POST['Contentreponse'],
-               date('d/m/Y'), $_POST['RefQC']
+               date('d/m/Y'), $_POST['RefQC'],$fk1
             );
-            $ReponseC->ajouterreponse($Reponse);
+           
+            // Instantiation and passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings                    // Enable verbose debug output
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host  = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'projetweb770@gmail.com';                     // SMTP username
+                $mail->Password   = '123456web';                               // SMTP password
+                $mail->SMTPSecure = 'tls';                                     // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 25;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            
+                //Recipients Email sender
+                $mail->setFrom('projetweb770@gmail.com', $_SESSION['username']);
+                $mail->addAddress('projetweb770@gmail.com');     // Add a recipient
+            
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Replay was posted ';
+                $mail->Body    = $_POST['Contentreponse'];
+            
+                $mail->send();
+                $ReponseC->ajouterreponse($Reponse);
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            } 
+
           //header('Location:afficherMeQuestion.php');
         }
         else
             $error = "Missing information";
     }
-
-
+   $user1=$usersC->recupererusers($Question['userfk']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,19 +118,22 @@ include_once 'navbar.php';
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="post-title-left129">
-                                        <h3><?PHP echo $Question['DesQ']; ?></h3> </div>
+                                        <h3><?PHP  $good=$QuestionC->BadWordFilter($Question['DesQ']); 
+                                             echo($good)?></h3> </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="post-que-rep-rihght320"> <a href="#"><i class="fa fa-question-circle" aria-hidden="true"></i> Question</a> <a href="#" class="r-clor10">Report</a> </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="post-details-info1982">
                             <p></p>
                           
                             <hr>
                             <div class="post-footer29032">
-                                <div class="l-side2023"> <i class="fa fa-check check2" aria-hidden="true"> solved</i> <a href="#"><i class="fa fa-star star2" aria-hidden="true">  5</i></a> <i class="fa fa-folder folder2" aria-hidden="true"> wordpress</i> <i class="fa fa-clock-o clock2" aria-hidden="true"> <?PHP echo $Question['Date_publication']; ?></i> <a href="#"><i class="fa fa-commenting commenting2" aria-hidden="true"> 5 answer</i></a> <i class="fa fa-user user2" aria-hidden="true"> 70 views</i> </div>
+                            <div class="l-side2023">   <?php if(strcmp($Question['QuestionStat'],"Resolved")==0) { ?>                 <i class="fa fa-check check2" aria-hidden="true"> solved</i> <?php }  else if(strcmp($Question['QuestionStat'],"Unresolved")==0) { ?>   <i class="fa fa-check check2" aria-hidden="true"> Unsolved</i> <?php } ?> <i class="fa fa-clock-o clock2" aria-hidden="true"> <?PHP echo $Question['Date_publication']; ?></i></div>
                                 <div class="l-rightside39">
                                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
@@ -102,33 +145,41 @@ include_once 'navbar.php';
                         <div class="R-tags309"> <i class="fa fa-tags" aria-hidden="true"> Wordpress, Question, Developer</i> </div>
                     </div>
                    
-                   
+                    <div class="author-details8392">
+                        <div class="author-img202l"> <img src="<?php echo $user1['image'] ?> " alt="image">
+                            <div class="au-image-overlay text-center"> <a href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a> </div>
+                        </div> <span class="author-deatila04re">
+                   <h5>Author:<?php echo $user1['username'] ?></h5>
+                    <p>Hi This is <?php echo $user1['nom'] ?> <?php echo $user1['prenom'] ?> my age is <?php echo $user1['age'] ?> and if you want to contact me my email is:<?php echo $user1['email'] ?>  </p>
+                    
+                </div>
                     <div class="comment-list12993">
                         <div class="container">
                             <div class="row">
                            
                                 <div class="comments-container">
                                 <?PHP
+                                $user2=$usersC->recupererusername($_SESSION['username']);
 				foreach($listeReponse as $Reponse){
 			?>
+            <?PHP 
+                                        ?>
                                     <ul id="comments-list" class="comments-list">
                                         <li>
                                              <div class="comment-main-level">
                                                 <!-- Avatar -->
-                                                <div class="comment-avatar"><img src="image/images.png" alt=""></div>
+                                                <div class="comment-avatar"><img src="<?php echo $user2['image'] ?>" alt=""></div>
                                                 <!-- Contenedor del Comentario -->
                                                 <div class="comment-box">
+                                                    
                                                     <div class="comment-head">
-                                                        <h6 class="comment-name"><a href="#">Aziz omezine</a></h6></div>
+                                                        <h6 class="comment-name"><a href="#"><?php echo $user2['username'] ?></a></h6></div>
                                                     <div class="comment-content"><?php echo $Reponse['Contentreponse'];?></div>
                                                     <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-folder" aria-hidden="true"> Details</i></a> <a href="#"><i class="fa fa-clock-o" aria-hidden="true"><?PHP echo $Question['Date_publication']; ?></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> <?PHP echo $Question['RefQ']; ?></i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a>
-                                            <form method="POST" action="supprimerreponse.php"><button type="submit" class="q-type23 button-ques2973" ><i class="fa fa-trash" aria-hidden="true"></i></button><input type="hidden" value=<?PHP echo $Reponse['Idreponse']; ?> name="Idreponse"></form></div>
+                                            <form method="POST" action="supprimerreponse.php"><button type="submit" class="q-type23 button-ques2973" ><i class="fa fa-trash" aria-hidden="true"></i></button><input type="hidden" value=<?PHP echo $Reponse['Idreponse']; ?> name="Idreponse"><input type="hidden" value=<?PHP echo $Question['RefQ']; ?> name="RefQ"></form></div>
                                                 </div>
                                                 <div class="ques-icon-info3293">   <a href="modifierReponse.php?Idreponse=<?PHP echo $Reponse['Idreponse']; ?>& RefQ=<?PHP echo $Reponse['RefQC']; ?>" ><i class="fa fa-edit" style="font-size: 26px;"></i></a> </div>
-                     
-                                          
-                                     
-                                           
+      
                                         </li>
                                         
                                         <?php } ?>
@@ -156,7 +207,8 @@ include_once 'navbar.php';
                 
                     <button type="submit" class="pos393-submit" name='ajouter' >Post Your Answer</button>
                     <input type="hidden" name="RefQC" id="RefQC"value="<?php echo $_GET['RefQ'];?>">
-                      
+                   <input type="hidden" id="userfk"  name="userfk" value="<?php echo $_SESSION['username'];?>"  >    
+                         
                             </div>
                            
                         </div>
@@ -424,7 +476,11 @@ include_once 'navbar.php';
             </div>
         </div>
     </section>
-   
+   <script>
+       /*function myfunction(x) {
+           x.classList.toggle("")
+       }*/
+    </script>
     <script src="ckeditor/ckeditor.js"></script>
       <script >
        CKEDITOR.replace('Article_editor');
