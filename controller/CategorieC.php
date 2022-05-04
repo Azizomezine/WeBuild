@@ -54,7 +54,7 @@
 			}	
 		}
 		function recuperercateg($ncateg){
-			$sql="select * from Categorie where ncateg like '%".$ncateg."%'  ";
+			$sql="select * from Categorie where ncateg like '".$ncateg."'  ";
 
 			$db = config::getConnexion();
 			try{
@@ -84,10 +84,10 @@
 		}
 */
 		function supprimerCategorie($IdCategorie){
-			$sql="DELETE FROM Categorie WHERE IdCategorie= :IdCategorie";
+			$sql="DELETE FROM Categorie WHERE idC= :idC";
 			$db = config::getConnexion();
 			$req=$db->prepare($sql);
-			$req->bindValue(':IdCategorie',$IdCategorie);
+			$req->bindValue(':idC',$IdCategorie);
 			try{
 				$req->execute();
 			}
@@ -109,39 +109,37 @@
         }
 
        
-
-
-		function modifierCategorie($Reponse, $IdCategorie){
+		function modifiercategorie($Categorie, $idC){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
-					'UPDATE Categorie SET 
+					'UPDATE categorie SET 
 						ncateg= :ncateg, 
-						descateg = :descateg,	
-						RefQC= :RefQC
-					WHERE IdCategorie = :IdCategorie'
+						descateg = :descateg
+					WHERE idC = :idC'
                 );
                 
                 $query->execute([
-					'ncateg' => $Reponse->getncateg(),
-					'descateg' => $Reponse->getdescategCategorie(),
-					'RefQC'=>$Reponse->getRefQC(),
-					 'IdCategorie'=>$IdCategorie
+					'ncateg' => $Categorie->getncateg(),
+					'descateg' => $Categorie->getdescateg(),
+					 'idC'=>$idC
 				]);		
 				echo $query->rowCount() . " records UPDATED successfully <br>";
 			} catch (PDOException $e) {
 				$e->getMessage();
 			}
 		}
-		function recupererCategorie($IdCategorie){
-			$sql="SELECT * from Categorie where IdCategorie=$IdCategorie";
+
+		
+		function recupererCategorie($IdC){
+			$sql="SELECT * from Categorie where idC=$IdC";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
 				$query->execute();
 
-				$Reponse=$query->fetch();
-				return $Reponse;
+				$Categorie=$query->fetch();
+				return $Categorie;
 			}
 			catch (Exception $e){
 				die('Erreur: '.$e->getMessage());

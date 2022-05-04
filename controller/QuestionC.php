@@ -8,8 +8,8 @@ class QuestionC {
 
 public function ajouterquestion($Question)
     {
-		$sql="INSERT INTO question (TitreQ, DesQ,Category, Date_publication, QuestionStat,IdCfk) 
-		VALUES (:TitreQ,:DesQ,:Category, :Date_publication , :QuestionStat  ,:IdCfk)";
+		$sql="INSERT INTO question (TitreQ, DesQ,Category, Date_publication, QuestionStat,IdCfk,userfk) 
+		VALUES (:TitreQ,:DesQ,:Category, :Date_publication , :QuestionStat  ,:IdCfk,:userfk)";
 		$db = config::getConnexion();
 		try{
 			$query = $db->prepare($sql);
@@ -19,7 +19,7 @@ public function ajouterquestion($Question)
 				'DesQ' => $Question->getDesQ(),
 				'Category' => $Question->getCateg(),
 				'Date_publication' => $Question->getDate_publication(),
-				'QuestionStat' => $Question->getQuestionStat(),'IdCfk' =>$Question->getIdCfk()
+				'QuestionStat' => $Question->getQuestionStat(),'IdCfk' =>$Question->getIdCfk(),'userfk'=>$Question->getuserfk()
 			]);			
 		}
 		catch (Exception $e){
@@ -98,7 +98,8 @@ public function ajouterquestion($Question)
 						DesQ = :DesQ,
 						Category = :Category,
 						Date_publication = :Date_publication,
-						QuestionStat  = :QuestionStat 
+						QuestionStat  = :QuestionStat ,
+						userfk =:userfk
 					WHERE RefQ = :RefQ'
                 );
                 
@@ -126,15 +127,25 @@ public function ajouterquestion($Question)
 				die('Erreur:'. $e->getMessage());
 			}
 		}
+		function supprimerQuestioncateg($idc){
+			$sql="DELETE FROM question WHERE IdCfk=:IdCfk";
+			$db = config::getConnexion();
+			$req=$db->prepare($sql);
+			$req->bindValue(':IdCfk', $idc);
+			try{
+				$req->execute();
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
 		public function detailquestion($RefQ)
 {
 $sql ="SELECT *FROM Question WHERE RefQ =$RefQ";
 $pdo = config :: getConnexion();
-
     try{
     $query =$pdo->prepare($sql);
     $query ->execute();
-
     $Question =$query->fetch();
     return $Question;
 
@@ -181,6 +192,19 @@ function rechercherQuestionMeilleur($Search){
 	catch (Exception $e){
 		return $e->getMessage();
 	}
-}       
+} 
+/*function hate_bad($bads)
+{$bads = array();
+	$file_array = file('C:/xampp/htdocs/WeBuild-utilisateurs/View/bad_words.txt',FILE_IGNORE_NEW_LINES);
+foreach ($file_array as $word_combo) {
+    $bads[] = explode(',', $word_combo);
 }
+    return $bads;
+}*/  
+function BadWordFilter($text){
+$pattern='/(fuck|cunt|shit|poop|putain|zut|Merde)/i';
+$remplacement="****";
+$good=preg_replace($pattern,$remplacement,$text);
+	return $good;   
+}}
 ?>
