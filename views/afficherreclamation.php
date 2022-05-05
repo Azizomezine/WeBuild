@@ -54,7 +54,9 @@
                             </div>
                         </div>
                         </div>
+                        <div id="emojis">
 
+</div>
                         
         
                    
@@ -133,6 +135,7 @@
           
           
             <div class="typing-field">
+            <button id="emo" type="button"> <i class="far fa-grin"></i></button>
                 <div class="input-data">
                     <input id="data" type="text" placeholder="Type something here.." size="70" required>
                         <button id="send-btn">Send</button>
@@ -188,6 +191,7 @@
                                         success: function($description){	
                                           
                                             $(".form").load(" .form > *");
+                                            $('.form').scrollTop($('.form').prop("scrollHeight"));
                                         }
                                     });}
 
@@ -228,6 +232,8 @@
                                             document.getElementById("sen").hidden = true;
                                             $("#data").val('');
                                             $(".form").load(" .form > *");
+                                            $('.form').scrollTop($('.form').prop("scrollHeight"));
+
 
                                             $s=null;
                                         }});
@@ -248,6 +254,8 @@
                               success: function($description){	
           
                                       $(".form").load(" .form > *");
+                                      $('.form').scrollTop($('.form').prop("scrollHeight"));
+
 
                               }});} );
                             
@@ -262,6 +270,17 @@
         .addEventListener("click", function() {
   document.getElementById("wrap").hidden = true;
   document.getElementById("bulle").hidden = false;
+
+}, false);
+</script> 
+<script>document.getElementById("emo")
+        .addEventListener("click", function() {
+            if (window.getComputedStyle(document.getElementById("emojis")).visibility === "hidden") {
+                document.getElementById("emojis").style.visibility = "visible";
+  }
+  else {document.getElementById("emojis").style.visibility = "hidden";}
+  
+ 
 
 }, false);
 </script> 
@@ -316,10 +335,22 @@ $(".custom-option").on("click", function() {
     var su = select.options[select.selectedIndex].value;
     document.cookie = 'su='+su;
 $(".form").load(" .form > *");
+$('.form').scrollTop($('.form').prop("scrollHeight"));
+
 
 
 });</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+<script src="../js/DisMojiPicker.js"></script>
+<script>
 
+
+    $("#emojis").disMojiPicker()
+    $("#emojis").picker(emoji =>  document.getElementById("data").value=document.getElementById("data").value+(emoji));
+    twemoji.parse(document.body);
+
+</script>
    
     
     

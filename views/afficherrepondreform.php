@@ -30,7 +30,7 @@ include("sidebar.php");
                             <div class="form-floating">
                                 <form action="../controller/ajouterreponse.php" method="POST">
                                 <textarea class="form-control" placeholder="Leave a comment here"  
-                                    id="floatingTextarea" style="height: 500px;"  name="description"></textarea>
+                                    id="floatingTextarea" style="height: 500px;"  name="description" required></textarea>
                                     <input id="num_reclamation" class="num_reclamation" type="hidden" value=<?PHP echo intval($_COOKIE['currentnum']);?> name="num_reclamation">
                                     <button  id="btn1" type="submit" class="btn btn-primary m-2" style="top: 10px;">envoyer</button>
                                 <label for="floatingTextarea">réponse</label>

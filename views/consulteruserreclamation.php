@@ -62,7 +62,10 @@ $user= $user1->recuperer_reclamations($currentnum);
                 <th scope="row">id client</th>
                 <td><?php echo $user['id_client']; ?></td>
                 </tr>
-               
+                </table>
+
+                <table border="1" align="center" id="rec" class="table table-responsive">
+                <?php if($user['num_reponse']!=null){ ?>     
                 <tr>
                 <th scope="row">num reponse</th>
                 <td id="num"><?php echo $user['num_reponse']; ?></td>
@@ -83,6 +86,7 @@ $user= $user1->recuperer_reclamations($currentnum);
                 <th scope="row">num_question</th>
                 <td><?php echo $user[	'num_question']; ?></td>
                 </tr>
+                <?php } ?>
 		</table>
 
         </div>
