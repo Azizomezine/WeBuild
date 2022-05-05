@@ -1,5 +1,5 @@
 <?php 
-include 'admin/db_connect.php'; 
+include_once 'admin/db_connect.php'; 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	foreach($_POST as $k => $v){
 		$$k = $v;
@@ -23,8 +23,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                             <select name="departure_airport_id" id="departure_location" class="custom-select browser-default select2">
                                                 <option value=""></option>
                                             <?php
-                                                $airport = $conn->query("SELECT * FROM airport_list order by airport asc");
-                                            while($row = $airport->fetch_assoc()):
+												$pdo= config::getConnexion();
+                                                $airport = $pdo->query("SELECT * FROM airport_list order by airport asc");
+                                            while($row = $airport->fetch(PDO::FETCH_ASSOC)):
                                             ?>
                                                 <option value="<?php echo $row['id'] ?>" <?php echo isset($departure_airport_id) && $departure_airport_id == $row['id'] ? "selected" : '' ?>><?php echo $row['location'].", ".$row['airport'] ?></option>
                                             <?php endwhile; ?>
@@ -37,8 +38,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                                 <option value=""></option>
 
                                             <?php
-                                                $airport = $conn->query("SELECT * FROM airport_list order by airport asc");
-                                            while($row = $airport->fetch_assoc()):
+												$pdo= config::getConnexion();
+                                                $airport = $pdo->query("SELECT * FROM airport_list order by airport asc");
+                                            while($row = $airport->fetch(PDO::FETCH_ASSOC)):
                                             ?>
                                                 <option value="<?php echo $row['id'] ?>" <?php echo isset($arrival_airport_id) && $arrival_airport_id == $row['id'] ? "selected" : '' ?>><?php echo $row['location'].", ".$row['airport'] ?></option>
                                             <?php endwhile; ?>
@@ -96,17 +98,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 						</div>
 						<hr class="divider">
 				<?php 
-				$airport = $conn->query("SELECT * FROM airport_list ");
-				while($row = $airport->fetch_assoc()){
+					$pdo= config::getConnexion();
+				$airport = $pdo->query("SELECT * FROM airport_list ");
+				while($row = $airport->fetch(PDO::FETCH_ASSOC)){
 					$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
 				}
 				$where = " where date(f.departure_datetime) > '".date("Y-m-d")."' ";
 				if($_SERVER['REQUEST_METHOD'] == "POST" )
 				$where .= " and f.departure_airport_id ='$departure_airport_id' and f.arrival_airport_id = '$arrival_airport_id' and date(f.departure_datetime) = '".date('Y-m-d',strtotime($date))."'  ";
-				$flight = $conn->query("SELECT f.*,a.airlines,a.logo_path FROM flight_list f inner join airlines_list a on f.airline_id = a.id $where order by rand()");
-				if($flight->num_rows > 0):
-				while($row=$flight->fetch_assoc()):
-					$booked = $conn->query("SELECT * FROM booked_flight where flight_id = ".$row['id'])->num_rows;
+				$flight = $pdo->query("SELECT f.*,a.airlines,a.logo_path FROM flight_list f inner join airlines_list a on f.airline_id = a.id $where order by rand()");
+				if($flight->rowCount()  > 0):
+				while($row=$flight->fetch(PDO::FETCH_ASSOC)):
+					$booked = $pdo->query("SELECT * FROM booked_flight where flight_id = ".$row['id'])->rowCount() ;
 				?>
 				<div class="row align-items-center">
 					<div class="col-md-3">
@@ -141,17 +144,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 					</div>
 						<hr class="divider">
 				<?php 
-				$airport = $conn->query("SELECT * FROM airport_list ");
-				while($row = $airport->fetch_assoc()){
+					$pdo= config::getConnexion();
+				$airport = $pdo->query("SELECT * FROM airport_list ");
+				while($row = $airport->fetch(PDO::FETCH_ASSOC)){
 					$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
 				}
 				$where = " where date(f.departure_datetime) > '".date("Y-m-d")."' ";
 				if($_SERVER['REQUEST_METHOD'] == "POST" )
 				$where .= " and f.departure_airport_id ='$arrival_airport_id' and f.arrival_airport_id = '$departure_airport_id' and date(f.departure_datetime) = '".date('Y-m-d',strtotime($date_return))."'  ";
-				$flight = $conn->query("SELECT f.*,a.airlines,a.logo_path FROM flight_list f inner join airlines_list a on f.airline_id = a.id $where order by rand()");
+				$flight = $pdo->query("SELECT f.*,a.airlines,a.logo_path FROM flight_list f inner join airlines_list a on f.airline_id = a.id $where order by rand()");
 				if($flight->num_rows > 0):
-				while($row=$flight->fetch_assoc()):
-					$booked = $conn->query("SELECT * FROM booked_flight where flight_id = ".$row['id'])->num_rows;
+				while($row=$flight->fetch(PDO::FETCH_ASSOC)):
+					$booked = $pdo->query("SELECT * FROM booked_flight where flight_id = ".$row['id'])->num_rows;
 
 				?>
 				<div class="row align-items-center">

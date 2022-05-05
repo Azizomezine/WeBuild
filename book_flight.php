@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 	<form action="" id="book-flight">
 		<input type="hidden" name="flight_id" value="<?php echo $_GET['id'] ?>">
 		<div class="form-group row" id="qty">
@@ -26,7 +26,7 @@
 		</div>
 		
 	</form>
-	</div>
+  </div>
 </div>
 <script>
 	$('#go').click(function(){
@@ -51,7 +51,7 @@
 	})
 	$('#book-flight').submit(function(e){
 		e.preventDefault()
-		start_load()
+		
 		$.ajax({
 			url:'admin/ajax.php?action=book_flight',
 			method:"POST",
@@ -59,7 +59,7 @@
 			success:function(resp){
 				if(resp ==1 ){
 					$('.modal').modal('hide')
-					end_load()
+					
 					alert_toast("Flight successfully booked.","success")
 				}
 			}
