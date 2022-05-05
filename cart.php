@@ -1,5 +1,6 @@
 <?php 
-include 'admin/db_connect.php'; 
+include_once 'admin/db_connect.php'; 
+
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	foreach($_POST as $k => $v){
 		$$k = $v;
@@ -35,13 +36,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 					</thead>
 					<tbody>
 						<?php
-							$airport = $conn->query("SELECT * FROM airport_list ");
-							while($row = $airport->fetch_assoc()){
+						$pdo= config::getConnexion();
+							$airport = $pdo->query("SELECT * FROM airport_list ");
+							while($row = $airport->fetch(PDO::FETCH_ASSOC)){
 								$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
 							}
-							$i=4;
-							$qry = $conn->query("SELECT b.*,f.*,a.airlines,a.logo_path,b.id as bid FROM  booked_flight b inner join flight_list f on f.id = b.flight_id inner join airlines_list a on f.airline_id = a.id WHERE b.id=$i order by b.id desc");
-							while($row = $qry->fetch_assoc()):
+							$i=7;
+							$qry = $pdo->query("SELECT b.*,f.*,a.airlines,a.logo_path,b.id as bid FROM  booked_flight b inner join flight_list f on f.id = b.flight_id inner join airlines_list a on f.airline_id = a.id WHERE b.id=$i order by b.id desc");
+							while($row = $qry->fetch(PDO::FETCH_ASSOC)):
 
 						 ?>
 						 <tr>
@@ -68,9 +70,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 						 		</div>
 						 	</td>
 						 	<td class="text-center">
-						 			<button class="btn btn-outline-primary btn-sm edit_booked" type="button" data-id="<?php echo $row['bid'] ?>"><i class="fa fa-edit"></i></button>
-						 			<button class="btn btn-outline-danger btn-sm delete_booked" type="button" data-id="<?php echo $row['bid'] ?>"><i class="fa fa-trash"></i></button>
-                                     <button  type="button" id="new_ticket"><i class="fa fa-plus"></i> Get ticket</button>
+						 			
+                                    <a href="ticket.php"><button  type="button"><i class="fa fa-plus"></i> Get ticket</button></a>
 						 	</td>
 
 						 </tr>
@@ -97,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 </style>	
 <script>
     	$('#new_ticket').click(function(){
-		uni_modal("New ticket","manage_ticket.php",'mid-large')
+		uni_modal("New ticket","pdf.php",'mid-large')
 	})
 	$('#booked-flight').dataTable()
 	$('#new_booked').click(function(){
