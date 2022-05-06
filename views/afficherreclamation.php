@@ -97,8 +97,7 @@
                      </script>
                 <?php $reclamationsc = new reclamationsc();
 	        $listereclamations=$reclamationsc->afficher_reclamations();
-            $reponsec = new reponsesc();
-	        $listereponses=$reponsec->afficher_reponses();
+            
             foreach($listereclamations as $reclamations){
             if ($reclamations['sujet']==$_COOKIE['su'])
             {
@@ -113,6 +112,8 @@
 					
                     <div  class="msg-header"><p class="re" id="re"><?php echo $reclamations['description']?></p></div></div><div class="user-inbox inbox"><div class="date"><p><?php echo $reclamations['date_reclamation']?></p></div></div>
                 <?php
+                $reponsec = new reponsesc();
+                $listereponses=$reponsec->afficher_reponses();
            foreach($listereponses as $reponses){
             if ($reponses['num_question']==$reclamations['num_reclamation'])
             {
@@ -128,7 +129,7 @@
                     <div class="date"><p><?php echo $reponses['date_reponse']?></p></div>
 
          <?php  
-           }}} }?>     
+           };};}; };?>     
             </div>
             
 
@@ -270,7 +271,7 @@
         .addEventListener("click", function() {
   document.getElementById("wrap").hidden = true;
   document.getElementById("bulle").hidden = false;
-
+  document.getElementById("emojis").style.visibility = "hidden";
 }, false);
 </script> 
 <script>document.getElementById("emo")
@@ -288,6 +289,7 @@
         .addEventListener("click", function() {
   document.getElementById("wrap").hidden = true;
   document.getElementById("bulle").hidden = true;
+  document.getElementById("emojis").style.visibility = "hidden";
 
 }, false);</script>
 <script>document.getElementById("bulle")

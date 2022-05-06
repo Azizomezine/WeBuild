@@ -7,6 +7,8 @@ $reclamationsc=new reclamationsc();//appel au controlleur
 $listereclamations=$reclamationsc->afficher_reclamations();
  
 ?>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <html>
 <style>
             #rec
@@ -23,12 +25,101 @@ $listereclamations=$reclamationsc->afficher_reclamations();
 				width: 100px;
    				 height: 50px;
 			}
+      #btn_tout{
+				position: relative;
+				top: 108px; left: 495px;
+        font-size: 10px;
+            width: 50px;
+            height: 25px;
+
+			}
+      #btn_non_lue{
+				position: relative;
+				top: 108px; left: 495px;
+        font-size: 10px;
+            width: 60px;
+            height: 25px;
+
+			}
+      #btn_lue{
+				position: relative;
+				top: 108px; left: 495px;
+            font-size: 10px;
+            width: 50px;
+            height: 25px;
+
+			}
+      .pagination
+{
+  position: relative;
+  left: 905px;top: 500px;
+}
         </style>
 
 <div class="m-n2">
   <button id="btn" class="btn btn-primary m-2" onclick="location.href='archive.php'"link><span>Archive</span></button>
 </div>
-		<div>
+		<div class="tab">
+    <?php 
+$db = config::getConnexion();
+
+if(isset($_GET['page']) && !empty($_GET['page'])){
+    $currentPage = (int) strip_tags($_GET['page']);
+}else{
+    $currentPage = 1;
+}
+
+// On détermine le nombre total d'articles
+if($_COOKIE['etat']==0){
+$sql = 'SELECT COUNT(*) AS nb_articles FROM `reclamations` ;';
+};
+if($_COOKIE['etat']==1){
+$sql = 'SELECT COUNT(*) AS nb_articles FROM `reclamations` WHERE etat=0;';
+};
+if($_COOKIE['etat']==2){
+$sql = 'SELECT COUNT(*) AS nb_articles FROM `reclamations` WHERE etat=1;';
+};
+
+// On prépare la requête
+$query = $db->prepare($sql);
+
+// On exécute
+$query->execute();
+
+// On récupère le nombre d'articles
+$result = $query->fetch();
+
+$nbArticles = (int) $result['nb_articles'];
+// On détermine le nombre d'articles par page
+$parPage = 5;
+
+// On calcule le nombre de pages total
+$pages = ceil($nbArticles / $parPage);
+$premier = ($currentPage * $parPage) - $parPage;
+if($_COOKIE['etat']==0){
+$sql = 'SELECT * FROM `reclamations`  LIMIT :premier, :parpage;';
+};
+if($_COOKIE['etat']==1){
+$sql = 'SELECT * FROM `reclamations` WHERE etat=0 LIMIT :premier, :parpage ;';
+};
+if($_COOKIE['etat']==2){
+$sql = 'SELECT * FROM `reclamations` WHERE etat=1 LIMIT :premier, :parpage ;';
+};
+// On prépare la requête
+$query = $db->prepare($sql);
+
+$query->bindValue(':premier', $premier, PDO::PARAM_INT);
+$query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+
+// On exécute
+$query->execute();
+
+// On récupère les valeurs dans un tableau associatif
+$listereclamations = $query->fetchAll(PDO::FETCH_ASSOC);
+?>
+    <button id="btn_tout" class="btn btn-primary m-2" ><span>tout</span></button>
+    <button id="btn_non_lue" class="btn btn-primary m-2" ><span>non lue</span></button>
+    <button id="btn_lue" class="btn btn-primary m-2" ><span>lue</span></button>
 		<table border="1" align="center" id="rec" class="table table-responsive tritable"  >
 			<tr>
 				<th scope="col">num de reclamation</th>
@@ -166,7 +257,6 @@ function triTable(table, numColonne, sens) {
 <script>
     
 	var t = document.getElementById('rec');
-	
 	for(var i =1; i < t.rows.length; i++)
 	{
 
@@ -190,14 +280,57 @@ function triTable(table, numColonne, sens) {
 	
 
 </script>
+<nav>
+                    <ul class="pagination">
+                        <!-- Lien vers la page précédente (désactivé si on se trouve sur la 1ère page) -->
+                        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="afficherreclamations.php?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
+                        </li>
+                        <?php for($page = 1; $page <= $pages; $page++): ?>
+                          <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+                          <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                <a href="afficherreclamations.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                            </li>
+                        <?php endfor ?>
+                          <!-- Lien vers la page suivante (désactivé si on se trouve sur la dernière page) -->
+                          <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="afficherreclamations.php?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
+                        </li>
+                    </ul>
+                </nav>
 
-		</table>
-		</div>
+
+    <script>document.getElementById("btn_tout")
+        .addEventListener("click", function() {
+            
+          document.cookie = 'etat='+0+'; path=/';
+          window.location.assign("afficherreclamations.php?page=1");
+
+});
+</script>
+<script>document.getElementById("btn_non_lue")
+        .addEventListener("click", function() {
+           
+  
+          document.cookie = 'etat='+1+'; path=/';
+          window.location.assign("afficherreclamations.php?page=1");
+
+});
+</script>
+<script>document.getElementById("btn_lue")
+        .addEventListener("click", function() {
+            
+          document.cookie = 'etat='+2+'; path=/';
+          window.location.assign("afficherreclamations.php?page=1");
+ 
+
+});
+</script>
 
 
+</table>
 
-
-
+</div>
 </html>
 
 
