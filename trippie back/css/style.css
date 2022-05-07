@@ -2,7 +2,7 @@
 :root {
     --primary: #009CFF;
     --light: #F3F6F9;
-    --dark: #191C24;
+    --dark: #FFFFFF;
 }
 
 .back-to-top {
@@ -35,7 +35,7 @@
 }
 
 .btn.btn-primary {
-    color: #FFFFFF;
+    color: #F3F6F9;
 }
 
 .btn-square {
@@ -82,7 +82,7 @@
 .content {
     margin-left: 250px;
     min-height: 100vh;
-    background: #FFFFFF;
+    background: #F3F6F9;
     transition: 0.5s;
 }
 
@@ -134,7 +134,7 @@
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: #FFFFFF;
+    background: #F3F6F9;
     border-color: var(--primary);
 }
 
@@ -144,7 +144,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
+    background: #F3F6F9;
     border-radius: 40px;
 }
 
@@ -192,7 +192,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
+    background: #F3F6F9;
     border-radius: 40px;
 }
 
