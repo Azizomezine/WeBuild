@@ -9,7 +9,6 @@
 	 {
         if (
             !empty($_POST["search"])  
-         
         )
         {
    $listevoitures=$voitureC->recherchervoiture($_POST["search"]);
@@ -98,7 +97,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>allocation</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="index.php" class="dropdown-item">voiture</a>
-                            <a href="index2.php" class="dropdown-item">reservation</a>
+                            <!-- reservation-->
                         </div>
                     </div> 
                 </div>
@@ -117,9 +116,10 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4" method="POST">
-                    <input class="form-control border-0" type="search" id="search" name="search" placeholder="search">
-                </form>
+                <form method="POST">  <input type="text" id="search"  placeholder=" search now"name="search">  
+                    <button type="submit"  name='ajouter' >Search Now</button>
+               </form>  
+
               
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -204,7 +204,10 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                 <button><a href="../views/ajoutervoiture.php">Ajouter une voiture</a></button>
+                <button><a href="../trippie back/stat.php">voir stat sur les vehicules disponible</a></button>
+
                 <form action="../trippie back/index.php" class="d-none d-md-flex ms-4" method="GET" >
+
             <select name="sort"  value="sort">
                     <option value="" class="d-none d-md-flex ms-4" selected>---Select Option---</option>
           <option value="a-z" <?php if(isset ($_GET['sort']) && $_GET['sort']=="a-z"){echo "selected";} ?> > marque (ASC)</option>
