@@ -2,6 +2,7 @@
 	include "../config.php";
 	require_once '../model/Voiture.php';
 
+
 	class VoitureC {
 		
 		function ajoutervoiture($Voiture){
@@ -102,7 +103,7 @@
 			}
 		}
 		function recherchervoiture($Search){
-			$sql="select * from voiture where Matricule like '".$Search."%' ";
+			$sql="select * from voiture where Matricule like '%".$Search."%' or Marque like '".$Search."%'";
 			$db = config::getConnexion();
 			try{
 				$user=$db->query($sql);
@@ -111,8 +112,10 @@
 			catch (Exception $e){
 				return $e->getMessage();
 			}
-		}     
+		}    
 		
-	}
+	}  
+
+	
 
 ?>

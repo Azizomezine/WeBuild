@@ -5,8 +5,8 @@
 	class ReserverC {
 		
 		function ajouterreservation($Voiture){
-			$sql="INSERT INTO reserver (date_permis, date_debut, date_retour, ville) 
-			VALUES (:date_permis,:date_debut,:date_retour, :ville)";
+			$sql="INSERT INTO reserver (date_permis, date_debut, date_retour, ville,idvoiture ) 
+			VALUES (:date_permis,:date_debut,:date_retour, :ville ,:idvoiture)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
@@ -15,7 +15,8 @@
 					'date_permis' => $Voiture->getDate_permis(),
 					'date_debut' => $Voiture->getDate_debut(),
 					'date_retour' => $Voiture->getDate_retour(),
-					'ville' => $Voiture->getVille()
+					'ville' => $Voiture->getVille(),
+					'idvoiture' => $Voiture->getIdvoiture()
 				]);			
 			}
 			catch (Exception $e){
