@@ -5,7 +5,10 @@ include_once("navbar.php");
 $voitureC = new VoitureC();
 $listevoitures = $voitureC->affichervoiture();
 
+      
+                            
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +16,7 @@ $listevoitures = $voitureC->affichervoiture();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>Electro - HTML Ecommerce Template</title>
+	<title>car rental</title>
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 	<!-- Bootstrap -->
@@ -41,7 +44,22 @@ $listevoitures = $voitureC->affichervoiture();
 			</style>
 </head>
 <body>
-	
+<?php
+                                            $bdd= new PDO('mysql:host=localhost;dbname=atelierphp;charset=utf8','root','');
+                                            $userParPage =6;
+                                            $userTotalReq=$bdd->query('SELECT Id FROM voiture');
+                                            $userTotal=$userTotalReq->rowCount();
+                                            $pagesTotales=ceil($userTotal/$userParPage);
+                                            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page']<= $pagesTotales){
+                                            $_GET['page']=intval($_GET['page']);
+                                            $pageCourante=$_GET['page'];
+                                            }else{
+                                                $pageCourante=1;
+                                            }
+                                            
+                                            $depart=($pageCourante-1)*$userParPage;
+                                            
+                                            ?>
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -53,9 +71,12 @@ $listevoitures = $voitureC->affichervoiture();
 					<!-- store products -->
 					<div class="row">
 					<?PHP
+					$listevoitures=$bdd->query('SELECT * FROM voiture ORDER BY Id DESC LIMIT '.$depart.','.$userParPage);
+
 	foreach ($listevoitures as $voiture) {
+		
 	?>
-					<center>	<div class="col-md-4 col-xs-6">
+						<div class="col-md-4 col-xs-6">
 
 							<div class="product">
 	
@@ -63,6 +84,8 @@ $listevoitures = $voitureC->affichervoiture();
 			<img src="include/<?PHP echo $voiture['Image']; ?>" alt="image" class="mini_img">
 								</div>
 								<div class="product-body">
+								<p class="product-category"><?PHP echo $voiture['Id']; ?></p>
+
 									<p class="product-category"><?PHP echo $voiture['Marque']; ?></p>
 									<h4 class="product-price"><?PHP echo $voiture['Prix']; ?></h4>
 								</div>
@@ -72,7 +95,9 @@ $listevoitures = $voitureC->affichervoiture();
 								</div>
 							</div>
 						</div>
-					</center>
+						
+						
+					
 						<?PHP
 	}
 	?>
@@ -82,12 +107,34 @@ $listevoitures = $voitureC->affichervoiture();
 					<!-- /store products -->
 					<!-- /store bottom filter -->
 				</div>
+				
 				<!-- /STORE -->
 			</div>
 			<!-- /row -->
 		</div>
 		<!-- /container -->
 	</div>
+	
+	<!-- store bottom filter -->
+	<div class="store-filter clearfix">
+							<ul class="store-pagination" id="page" name="page">
+								<li class="active">
+								<?php 
+        for($i=1;$i<=$pagesTotales;$i++){
+            if($i == $pageCourante){
+            echo $i.' ';
+            }else{
+            echo '<a href="store 2.php?page='.$i.'">'.$i.'</a> ';
+        }
+    }
+
+        ?>
+		</li>
+							</ul>
+						</div>
+						<!-- /store bottom filter -->
+					
+						
 
 	<!-- /SECTION -->
 	<!-- jQuery Plugins -->
@@ -99,3 +146,4 @@ $listevoitures = $voitureC->affichervoiture();
 	<script src="js/main.js"></script>
 </body>
 </html>
+<script src="https://code.tidio.co/vovec58zdlvywn2p4uymbpythelf47d8.js" async></script>

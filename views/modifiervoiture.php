@@ -59,6 +59,7 @@ if (
 
     ?>
         <div class="container">
+            <h3>modifier voiture </h3>
             <form action="" method="POST" name="f1"onSubmit="return validateForm()">
 
                 <input type="text" name="id" id="id" value="<?php echo $voiture['Id']; ?>" disabled>

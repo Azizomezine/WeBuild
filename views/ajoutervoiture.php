@@ -61,6 +61,8 @@ if (
     </div>
     <div class="container">
         <form action="" method="POST" name="f1"onSubmit="return validateForm()">
+                            <h3>ajouter </h3>
+
 
             <input type="text" placeholder="matricule" name="matricule" id="matricule">
             <p id="errorMat" class="error"></p>
