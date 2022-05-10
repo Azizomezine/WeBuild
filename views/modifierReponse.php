@@ -2,7 +2,7 @@
 include_once '../Model/Question.php';
 include_once '../Model/Reponse.php';
 //include_once '../controller/QuestionC.php';
-include_once '../controller/ReponseC.php';
+//include_once '../controller/ReponseC.php';
 include_once '../controller/utilisateurC.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

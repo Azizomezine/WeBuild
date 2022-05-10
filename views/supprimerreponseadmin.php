@@ -2,7 +2,7 @@
 
 include '../controller/ReponseC.php';
 
-include '../controller/QuestionC.php';
+//include '../controller/QuestionC.php';
 
 $ReponseC=new ReponseC();
 if (isset($_POST["Idreponse"])){

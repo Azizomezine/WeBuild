@@ -1,6 +1,6 @@
 <?php
 
-include '../controller/QuestionC.php';
+//include '../controller/QuestionC.php';
 include_once '../controller/ReponseC.php';
 $QuestionC=new QuestionC();
 $Reponse=new ReponseC();
