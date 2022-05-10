@@ -34,7 +34,7 @@ public function ajouterquestion($Question)
                  try
                  {
                      $query = $pdo ->prepare (
-                         'select * FROM  question ORDER BY RefQ  DESC LIMIT 0,5' );
+                         'select * FROM  question ORDER BY RefQ  DESC LIMIT 0,2' );
                      $query ->execute();
                      $result = $query ->fetchAll(); 
                      return $result;
@@ -43,6 +43,7 @@ public function ajouterquestion($Question)
                  }
              }
          }
+
 		 public function afficherallquestion()
          {
              $pdo =config::getConnexion();
@@ -98,8 +99,7 @@ public function ajouterquestion($Question)
 						DesQ = :DesQ,
 						Category = :Category,
 						Date_publication = :Date_publication,
-						QuestionStat  = :QuestionStat ,
-						userfk =:userfk
+						QuestionStat  = :QuestionStat 
 					WHERE RefQ = :RefQ'
                 );
                 
@@ -163,6 +163,23 @@ public function detailquestioncateg($idC)
 			{
 				$query = $pdo ->prepare (
 					"select * FROM  question WHERE IdCfk='".$idC."' ORDER BY RefQ  " );
+				$query ->execute();
+				$result = $query ->fetchAll(); 
+				return $result;
+			}catch(PDOExeption $e){
+				$e->getMessage();
+			}
+		}
+		}
+		public function questionuser($userfk)
+		{
+		
+		$pdo =config::getConnexion();
+		{
+			try
+			{
+				$query = $pdo ->prepare (
+					"select * FROM  question WHERE userfk='".$userfk."' ORDER BY userfk  " );
 				$query ->execute();
 				$result = $query ->fetchAll(); 
 				return $result;

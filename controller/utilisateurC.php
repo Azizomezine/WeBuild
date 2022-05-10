@@ -1,6 +1,6 @@
 <?php
 //require '../config.php';
-
+include 'ReponseC.php';
 
 class usersC{
 
@@ -13,8 +13,8 @@ class usersC{
 
         $query =$pdo->prepare(
     
-            "INSERT INTO users (image,nom,prenom,age,username,adresse,gsm,email,password)
-            VALUES ( :image,:nom, :prenom, :age, :username,:adresse,:gsm,:email, :password)"
+            "INSERT INTO users (image,nom,prenom,age,username,adresse,gsm,email,password,role)
+            VALUES ( :image,:nom, :prenom, :age, :username,:adresse,:gsm,:email, :password,:role)"
     
         );    //query = requette
     
@@ -29,7 +29,8 @@ class usersC{
             'adresse'=>$users->getadresse(),
             'gsm'=>$users->getgsm(),
             'email'=>$users->getemail(),
-            'password'=>$users->getpassword()
+            'password'=>$users->getpassword(),
+            'role'=>$users->getrole()
         ]);
     
     } catch (PDOException $e)
@@ -108,7 +109,8 @@ class usersC{
                         adresse=:adresse,
                         gsm=:gsm,
 						email = :email,
-						password = :password
+						password = :password,
+                        role=:role
 					WHERE id = :id'
 				);
 				$query->execute([
@@ -121,6 +123,7 @@ class usersC{
                     'gsm' => $users->getgsm(),
 					'email' => $users->getEmail(),
 					'password' => $users->getPassword(),
+                    'role'=>$users->getrole(),
 					'id' => $id
 				]);
 			
@@ -153,17 +156,15 @@ class usersC{
         }
 
 
-        public function tri() {
-            $db=config::getConnexion();
-            try { 
-                $query=$db->prepare("SELECT * FROM users ORDER BY nom");
-                while( $result=$query->fetch_Array())
-                $query->execute();
-                $result=$query->fetchAll();
-                //$result=$db->query("SELECT * FROM users");hédhy résumé l 3 lignes li kbal
-                return $result;
-            }catch(PDOException $e){
-                $e->getMessage();
+        public function recherche($key)
+        {
+            $sql = "SELECT * FROM users WHERE gsm LIKE '%$key%' OR prenom LIKE '%$key%' OR nom LIKE '%$key%' ";
+            $db = config::getConnexion() ;
+            try {
+                $liste = $db->query($sql);
+                return $liste;
+            } catch (Exception $e) {
+                die('Erreur: ' . $e->getMessage());
             }
         }
     }
