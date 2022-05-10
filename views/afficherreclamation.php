@@ -22,47 +22,17 @@
 </head>
 <body>
   
-<div class="wrapper">
-            <div>
-                 <img src="../Resources/Images/banner.svg"  >
-            </div>
-        </div>
-          <div class="container">
-            <div class="mini-nav">             
-                <a href="#">Public transport</a> 
-                <a href="#">Carpooling</a> 
-           </div>
-                        <div class="info">
-                            <h1> <img src="../Resources/Icons/location icon.svg"  > Location</h1>
-                            <p>Where are you now?</p>
-                        </div>
-                        <div class="info">
-                            <h1> <img src="../Resources/Icons/destination icon.svg"> Destination</h1>
-                            <p>Where are you going?</p>
-                        </div>
-                        <div class="info">
-                            <h1><img src="../Resources/Icons/date icon.svg"> Date</h1>
-                            <p>insert date</p>
-                        </div>
-                        <div class="info">
-                            <h1><img src="../Resources/Icons/passengers icon.svg"  > Passengers</h1>
-                            <p>Passengers</p>
-                        </div>
-                        <div class="info">
-                            <div class="search">
-                                <button class="btn btn1"> Search</button>
-                            </div>
-                        </div>
-                        </div>
-                        <div id="emojis">
 
-</div>
+
+                        
                         
         
                    
         
                
-          
+<div id="emojis">
+
+</div>
         <div id="wrap" class="wrap">
             <div class="title">reclamation
                     <button id="hide-btn">
@@ -153,6 +123,7 @@
                         <button class="bulle" ><i class="fas fa-user"></i></button>       
                         </div>
                         
+                        
 <script>
   document.getElementById("bulle").hidden = true;
 </script>
@@ -174,7 +145,7 @@
                                     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                                     var $date_reclamtion = date+' '+time;
                                     var $etat = 0;
-                                    var $id_client = 1;
+                                    var $id_client = 88;
                                     if($description !=null){
                                     	
                                     
