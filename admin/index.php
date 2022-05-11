@@ -6,14 +6,27 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Admin |Tripee</title>
- 	
+
+
+
+</head>
+<style>
+	body{
+        background: #f6f6f6;
+  }
+  .modal-dialog.large {
+    width: 80% !important;
+    max-width: unset;
+  }
+  .modal-dialog.mid-large {
+    width: 50% !important;
+    max-width: unset;
+  }
+</style>
 
 <?php
-	session_start();
-  if(!isset($_SESSION['login_id']))
-    header('location:login.php');
- include('./header.php'); 
- // include('./auth.php'); 
+ include('header.php'); 
+
  ?>
 
 </head>
@@ -89,8 +102,10 @@
         $(this).remove();
       })
   }
+  
 
-  window.uni_modal = function($title = '' , $url='',$size=""){
+  window.uni_modal = function($title ='',$url='',$size="",$book = 0){
+    $('#uni_modal .modal-title').html($title);
     start_load()
     $.ajax({
         url:$url,
@@ -102,17 +117,50 @@
             if(resp){
                 $('#uni_modal .modal-title').html($title)
                 $('#uni_modal .modal-body').html(resp)
-                if($size != ''){
+                if($size != '' && $book == 1 ){
                     $('#uni_modal .modal-dialog').addClass($size)
+                    $('#uni_modal .submit').html('Book')
                 }else{
                     $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
+                    $('#uni_modal .submit').html('Find')
                 }
+              }
+            
                 $('#uni_modal').modal('show')
+              },
+      complete:function(){
                 end_load()
             }
-        }
+        
     })
 }
+/*
+window.uni_modal =  function($title='',$url='',$book = 0){
+    $('#uni_modal .modal-title').html($title);
+        start_load();
+
+    $.ajax({
+      url:$url,
+      error:err=>console.log(err),
+      success:function(resp){
+        $('#uni_modal .modal-body').html(resp)
+        if('<?php // echo !isset($_SESSION['login_id']) ?>' == 1){
+                if($book == 1){
+                   $('#uni_modal .submit').html('Book')
+                }else{
+                   $('#uni_modal .submit').html('Find')
+        
+                }
+              }
+        $('#uni_modal .modal-footer').show()
+        $('#uni_modal').modal('show')
+      },
+      complete:function(){
+        end_load();
+
+      }
+    })
+  } */
 window._conf = function($msg='',$func='',$params = []){
      $('#confirm_modal #confirm').attr('onclick',$func+"("+$params.join(',')+")")
      $('#confirm_modal .modal-body').html($msg)
@@ -135,18 +183,14 @@ window._conf = function($msg='',$func='',$params = []){
     $('#alert_toast .toast-body').html($msg)
     $('#alert_toast').toast({delay:3000}).toast('show');
   }
+
+  
   $(document).ready(function(){
     $('#preloader').fadeOut('fast', function() {
         $(this).remove();
       })
   })
-  $('.datetimepicker').datetimepicker({
-      format:'Y/m/d H:i',
-      startDate: '+3d'
-  })
-  $('.select2').select2({
-    placeholder:"Please select here",
-    width: "100%"
-  })
+</script>
 </script>	
+
 </html>

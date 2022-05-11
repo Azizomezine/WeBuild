@@ -1,4 +1,4 @@
-<?php include('db_connect.php');?>
+<?php include_once('db_connect.php');?>
 
 <div class="container-fluid">
 	
@@ -55,8 +55,9 @@
 							<tbody>
 								<?php 
 								$i = 1;
-								$cats = $conn->query("SELECT * FROM airport_list order by id asc");
-								while($row=$cats->fetch_assoc()):
+								$pdo= config::getConnexion();
+								$cats = $pdo->query("SELECT * FROM airport_list order by id asc");
+								while($row=$cats->fetch(PDO::FETCH_ASSOC)):
 								?>
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
@@ -163,7 +164,9 @@
 			data:{id:$id},
 			success:function(resp){
 				if(resp==1){
+					
 					alert_toast("Data successfully deleted",'success')
+
 					setTimeout(function(){
 						location.reload()
 					},1500)
@@ -172,4 +175,7 @@
 			}
 		})
 	}
+	$(document).ready(function(){
+		load_location()
+	})
 </script>

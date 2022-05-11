@@ -1,8 +1,9 @@
 <?php
-include 'db_connect.php';
-$qry = $conn->query("SELECT * from system_settings limit 1");
+include_once'db_connect.php';
+$pdo= config::getConnexion();
+$qry = $pdo->query("SELECT * from system_settings limit 1");
 if($qry->num_rows > 0){
-	foreach($qry->fetch_array() as $k => $val){
+	foreach($qry->fetch(PDO::FETCH_ASSOC) as $k => $val){
 		$meta[$k] = $val;
 	}
 }
@@ -34,7 +35,7 @@ if($qry->num_rows > 0){
 					<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))">
 				</div>
 				<div class="form-group">
-					<img src="<?php echo isset($meta['cover_img']) ? '../assets/img/'.$meta['cover_img'] :'' ?>" alt="" id="cimg">
+					<img src="<?php echo isset($meta['cover_img']) ? '../views/assets/img/'.$meta['cover_img'] :'' ?>" alt="" id="cimg">
 				</div>
 				<center>
 					<button class="btn btn-info btn-primary btn-block col-md-2">Save</button>

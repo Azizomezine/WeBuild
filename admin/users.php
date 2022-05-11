@@ -25,9 +25,10 @@
 			<tbody>
 				<?php
  					include 'db_connect.php';
- 					$users = $conn->query("SELECT * FROM users order by name asc");
+					 $pdo = config::getConnexion();
+ 					$users = $pdo->query("SELECT * FROM users order by name asc");
  					$i = 1;
- 					while($row= $users->fetch_assoc()):
+ 					while($row= $users->fetch(PDO::FETCH_ASSOC)):
 				 ?>
 				 <tr>
 				 	<td>

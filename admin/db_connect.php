@@ -1,3 +1,23 @@
-<?php 
+<?php
+    class config {
+        private static $pdo = NULL;
 
-$conn= new mysqli('localhost','root','','flight_booking_db')or die("Could not connect to mysql".mysqli_error($con));
+        public static function getConnexion() {
+        if (!isset(self::$pdo)) {
+            try{
+            self::$pdo = new PDO('mysql:host=localhost;dbname=flight_booking_db', 'root', '',
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]);
+           
+            }catch(Exception $e){
+            die('Erreur: '.$e->getMessage());
+            }
+        }
+        return self::$pdo;
+        }
+    
+        
+    }
+?>

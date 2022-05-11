@@ -1,4 +1,4 @@
-<?php include('db_connect.php');?>
+<?php include_once('db_connect.php');?>
 
 <div class="container-fluid">
 	
@@ -57,8 +57,9 @@
 							<tbody>
 								<?php 
 								$i = 1;
-								$cats = $conn->query("SELECT * FROM airlines_list order by id asc");
-								while($row=$cats->fetch_assoc()):
+								$pdo= config::getConnexion();
+								$cats = $pdo->query("SELECT * FROM airlines_list order by id asc");
+								while($row=$cats->fetch(PDO::FETCH_ASSOC)):
 								?>
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
@@ -118,16 +119,12 @@
 			success:function(resp){
 				if(resp==1){
 					alert_toast("Data successfully added",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
+					setInterval('location.reload()', 7000); 
 
 				}
 				else if(resp==2){
 					alert_toast("Data successfully updated",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
+					setInterval('location.reload()', 7000); 
 
 				}
 			}
@@ -139,7 +136,7 @@
 		cat.get(0).reset()
 		cat.find("[name='id']").val($(this).attr('data-id'))
 		cat.find("[name='airlines']").val($(this).attr('data-airlines'))
-		cat.find("#cimg").attr("src","../assets/img/"+$(this).attr('data-logo_path'))
+		cat.find("#cimg").attr("src","../views/assets/img/"+$(this).attr('data-logo_path'))
 		end_load()
 	})
 	$('.delete_airline').click(function(){
@@ -164,12 +161,15 @@
 			success:function(resp){
 				if(resp==1){
 					alert_toast("Data successfully deleted",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
+					setInterval('location.reload()', 7000); 
 
 				}
 			}
 		})
 	}
 </script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+ 

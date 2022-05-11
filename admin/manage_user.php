@@ -1,8 +1,9 @@
 <?php 
-include('db_connect.php');
+include_once('db_connect.php');
 if(isset($_GET['id'])){
-$user = $conn->query("SELECT * FROM users where id =".$_GET['id']);
-foreach($user->fetch_array() as $k =>$v){
+	$pdo= config::getConnexion();
+$user = $pdo->query("SELECT * FROM users where id =".$_GET['id']);
+foreach($user->fetch(PDO::FETCH_ASSOC) as $k =>$v){
 	$meta[$k] = $v;
 }
 }

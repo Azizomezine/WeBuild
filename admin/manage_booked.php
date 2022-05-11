@@ -1,8 +1,10 @@
 <?php 
-include('db_connect.php');
+include_once('db_connect.php');
+$pdo= config::getConnexion();
 if(isset($_GET['id'])){
-$qry = $conn->query("SELECT * FROM booked_flight where id = ".$_GET['id']);
-foreach($qry->fetch_array() as $k => $v){
+$qry = $pdo->query("SELECT * FROM booked_flight where id = ".$_GET['id']);
+				
+foreach($qry->fetch(PDO::FETCH_ASSOC) as $k => $v){
 	$$k = $v;
 } }
 ?>

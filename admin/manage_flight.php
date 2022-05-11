@@ -1,8 +1,13 @@
-<?php include 'db_connect.php' ?>
+<?php include_once 'db_connect.php' ;
+
+include_once 'header.php';
+
+?>
 <?php 
+$pdo = config::getConnexion();
 if(isset($_GET['id'])){
-	$qry = $conn->query("SELECT * FROM flight_list where id=".$_GET['id']);
-	foreach($qry->fetch_array() as $k => $val){
+	$qry = $pdo->query("SELECT * FROM flight_list where id=".$_GET['id']);
+	foreach($qry->fetch(PDO::FETCH_ASSOC)  as $k => $val){
 		$$k = $val;
 	}
 }
@@ -19,8 +24,9 @@ if(isset($_GET['id'])){
 						<select name="airline" id="airline" >
 							<option></option>
 							<?php 
-							$airline = $conn->query("SELECT * FROM airlines_list order by airlines asc");
-							while($row = $airline->fetch_assoc()):
+							$pdo = config::getConnexion();
+							$airline = $pdo->query("SELECT * FROM airlines_list order by airlines asc");
+							while($row = $airline->fetch(PDO::FETCH_ASSOC)):
 							?>
 								<option value="<?php echo $row['id'] ?>" <?php echo isset($airline_id) && $airline_id == $row['id'] ? "selected" : '' ?>><?php echo $row['airlines'] ?></option>
 							<?php endwhile; ?>
@@ -43,8 +49,9 @@ if(isset($_GET['id'])){
 						<select name="departure_airport_id" id="departure_location" >
 							<option value=""></option>
 						<?php
-							$airport = $conn->query("SELECT * FROM airport_list order by airport asc");
-						while($row = $airport->fetch_assoc()):
+						$pdo = config::getConnexion();
+							$airport = $pdo->query("SELECT * FROM airport_list order by airport asc");
+						while($row = $airport->fetch(PDO::FETCH_ASSOC)):
 						?>
 							<option value="<?php echo $row['id'] ?>" <?php echo isset($departure_airport_id) && $departure_airport_id == $row['id'] ? "selected" : '' ?>><?php echo $row['location'].", ".$row['airport'] ?></option>
 						<?php endwhile; ?>
@@ -60,8 +67,9 @@ if(isset($_GET['id'])){
 							<option value=""></option>
 
 						<?php
-							$airport = $conn->query("SELECT * FROM airport_list order by airport asc");
-						while($row = $airport->fetch_assoc()):
+						$pdo = config::getConnexion();
+							$airport = $pdo->query("SELECT * FROM airport_list order by airport asc");
+						while($row = $airport->fetch(PDO::FETCH_ASSOC)):
 						?>
 							<option value="<?php echo $row['id'] ?>" <?php echo isset($arrival_airport_id) && $arrival_airport_id == $row['id'] ? "selected" : '' ?>><?php echo $row['location'].", ".$row['airport'] ?></option>
 						<?php endwhile; ?>
@@ -131,14 +139,8 @@ if(isset($_GET['id'])){
 	 		}
 	 	})
 	 })
-	 $('.datetimepicker').attr('autocomplete','off')
+	
 
-document.getElementById("seats").addEventListener("change", verif);
-function verif() {
-seats = document.getElementById("seats").value;
-if(seats<0)
-alert("write a valid number for seats");
-
-}
+  
 
 </script>

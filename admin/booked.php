@@ -1,4 +1,8 @@
-<?php include 'db_connect.php' ?>
+<?php include_once 'db_connect.php' ;
+
+include_once 'header.php';
+
+?>
 
 <div class="container-fluid">
 	<div class="col-lg-12">
@@ -7,7 +11,7 @@
 				<large class="card-title">
 					<b>Booked Flights List</b>
 				</large>
-				<a href="../index.php?page=flights"><button class="btn btn-primary btn-block col-md-2 float-right" type="button" ><i class="fa fa-plus"></i> New booking</button></a>
+				<a href="../views/index.php?page=flights"><button class="btn btn-primary btn-block col-md-2 float-right" type="button" ><i class="fa fa-plus"></i> New booking</button></a>
 			</div>
 			<div class="card-body">
 				<table class="table table-bordered" id="flight-list">
@@ -27,13 +31,16 @@
 					</thead>
 					<tbody>
 						<?php
-							$airport = $conn->query("SELECT * FROM airport_list ");
-							while($row = $airport->fetch_assoc()){
+					
+						$pdo= config::getConnexion();
+				
+							$airport = $pdo->query("SELECT * FROM airport_list ");
+							while($row = $airport->fetch(PDO::FETCH_ASSOC)){
 								$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
 							}
 							$i=1;
-							$qry = $conn->query("SELECT b.*,f.*,a.airlines,a.logo_path,b.id as bid FROM  booked_flight b inner join flight_list f on f.id = b.flight_id inner join airlines_list a on f.airline_id = a.id  order by b.id desc");
-							while($row = $qry->fetch_assoc()):
+							$qry = $pdo->query("SELECT b.*,f.*,a.airlines,a.logo_path,b.id as bid FROM  booked_flight b inner join flight_list f on f.id = b.flight_id inner join airlines_list a on f.airline_id = a.id  order by b.id desc");
+							while($row = $qry->fetch(PDO::FETCH_ASSOC)):
 
 						 ?>
 						 <tr>
@@ -47,7 +54,7 @@
 						 	<td>
 						 		<div class="row">
 						 		<div class="col-sm-4">
-						 			<img src="../assets/img/<?php echo $row['logo_path'] ?>" alt="" class="btn-rounder badge-pill">
+						 			<img src="../views/assets/img/<?php echo $row['logo_path'] ?>" alt="" class="btn-rounder badge-pill">
 						 		</div>
 						 		<div class="col-sm-6">
 						 		<p>Airline :<b><?php echo $row['airlines'] ?></b></p>
@@ -99,12 +106,12 @@
 function delete_booked($id){
 		start_load()
 		$.ajax({
-			url:'ajax.php?action=delete_flight',
+			url:'ajax.php?action=delete_booked',
 			method:'POST',
 			data:{id:$id},
 			success:function(resp){
 				if(resp==1){
-					alert_toast("Flight successfully deleted",'success')
+					alert_toast("booking successfully deleted",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)
